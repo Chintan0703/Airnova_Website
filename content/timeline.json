@@ -1,0 +1,46 @@
+[
+  {
+    "year": "2019",
+    "title": "Inception & First Wings",
+    "summary": "Airnova was founded by a passionate cohort of aeronautical and electronics engineering students with a shared ambition to master unmanned aerial systems.",
+    "details": [
+      "Formed core subsystems: Aerodynamics, Propulsion, and Avionics.",
+      "Fabricated first balsa-wood glider and RC high-wing trainer aircraft.",
+      "Established foundational workshop safety and telemetry logging protocols."
+    ],
+    "highlight": false
+  },
+  {
+    "year": "2021",
+    "title": "Technical Expansion & Autonomy",
+    "summary": "Transitioned into autonomous multi-rotor platforms and hybrid airframe architectures with custom flight controller firmware.",
+    "details": [
+      "Integrated PX4 open-source autopilot for automated waypoint grid surveys.",
+      "Expanded committee structure to 8 specialized functional wings.",
+      "Introduced composite carbon-fiber manufacturing processes."
+    ],
+    "highlight": false
+  },
+  {
+    "year": "2023",
+    "title": "National Podiums & Biomimetic Research",
+    "summary": "Achieved breakthrough podium rankings at national aerospace symposiums and launched the Biomimetic Flight Initiative.",
+    "details": [
+      "1st Place in Autonomous Navigation Challenge at National Drone Conclave.",
+      "First successful flight trials of bio-inspired flapping-wing Ornithopter prototypes.",
+      "Secured industry partnership grants for high-discharge propulsion test benches."
+    ],
+    "highlight": true
+  },
+  {
+    "year": "2025",
+    "title": "Next-Gen Fleet & Vertical Mobility",
+    "summary": "Rolled out the 2025 Flagship Engineering Cohort featuring 7 advanced aircraft, including dual-mode VTOL, sounding rocketry, and wearable gesture UAVs.",
+    "details": [
+      "Engineered transition flight mechanics for Tilt-Rotor VTOL prototype.",
+      "Integrated onboard Edge AI vision for real-time obstacle avoidance.",
+      "Prepared international competition entry portfolio with full EDR documentation."
+    ],
+    "highlight": true
+  }
+]

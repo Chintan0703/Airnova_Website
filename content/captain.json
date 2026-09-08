@@ -1,0 +1,15 @@
+{
+  "name": "Aarav Sharma",
+  "title": "Captain & Flight Operations Lead",
+  "tenure": "2024 – Present",
+  "quote": "Aerospace engineering is not merely about beating gravity; it is about orchestrating aerodynamics, precision avionics, and team synergy into seamless flight.",
+  "bio": "Aerospace engineering senior specializing in autonomous VTOL transition dynamics and composite airframe optimization. Spearheading Airnova's 2025 international competition squadron and advancing multidisciplinary research across our 8 functional subsystems.",
+  "subsystemFocus": "Flight Dynamics & Autonomous Systems",
+  "socials": {
+    "linkedin": "https://linkedin.com",
+    "instagram": "https://instagram.com",
+    "email": "captain@airnova.org",
+    "github": "https://github.com"
+  },
+  "avatarPlaceholder": "/images/team/captain.jpg"
+}

@@ -1,0 +1,106 @@
+[
+  {
+    "id": "aero",
+    "name": "Aerodynamics & Structure",
+    "icon": "Wing",
+    "description": "Airframe design, structural stress analysis, composite carbon manufacturing, and high-fidelity CFD aerodynamic simulation.",
+    "focusAreas": [
+      "CFD Airfoil Optimization",
+      "Composite & Carbon Fiber Fabrication",
+      "FEA Structural Stress Testing",
+      "Weight-to-Stiffness Profiling"
+    ],
+    "leadRole": "Aerodynamics Lead"
+  },
+  {
+    "id": "propulsion",
+    "name": "Propulsion",
+    "icon": "Rocket",
+    "description": "Motor thrust profiling, electronic speed controller (ESC) telemetry, high-discharge battery management, and hybrid powertrain systems.",
+    "focusAreas": [
+      "Static & Dynamic Thrust Benches",
+      "Brushless Motor & ESC Telemetry",
+      "LiPo Battery Management Systems (BMS)",
+      "Propeller Aerodynamic Efficiency"
+    ],
+    "leadRole": "Propulsion Systems Lead"
+  },
+  {
+    "id": "controls",
+    "name": "Control Systems",
+    "icon": "Cpu",
+    "description": "Autopilot integration, PID stabilization algorithms, autonomous waypoint navigation, and optical obstacle avoidance architectures.",
+    "focusAreas": [
+      "PX4 & ArduPilot Flight Controllers",
+      "Custom PID & LQR Control Loops",
+      "GPS-Denied Navigation & VIO",
+      "Long-Range Telemetry Links"
+    ],
+    "leadRole": "Avionics & Controls Lead"
+  },
+  {
+    "id": "rd",
+    "name": "Research & Development",
+    "icon": "Microscope",
+    "description": "Biomimetic flight mechanics, flapping-wing kinematics, micro air vehicles (MAVs), and next-generation experimental UAV platforms.",
+    "focusAreas": [
+      "Bio-Inspired Flapping Mechanisms",
+      "Micro Aerial Robotics",
+      "Computer Vision & Edge AI",
+      "Novel VTOL Transitions"
+    ],
+    "leadRole": "R&D Principal"
+  },
+  {
+    "id": "sponsorship",
+    "name": "Sponsorship & Relations",
+    "icon": "Handshake",
+    "description": "Corporate partnerships, industry liaisons, equipment grants, and technical pitch decks connecting Airnova with aerospace leaders.",
+    "focusAreas": [
+      "Industrial Sponsor Outreach",
+      "Grant Acquisition & Funding",
+      "Corporate Synergy Proposals",
+      "Alumni & Industry Networking"
+    ],
+    "leadRole": "Corporate Relations Head"
+  },
+  {
+    "id": "documentation",
+    "name": "Documentation & EDR",
+    "icon": "FileText",
+    "description": "Engineering Design Reports (EDR), mathematical proofs, flight test logbooks, and technical compliance for international competitions.",
+    "focusAreas": [
+      "Engineering Design Reports (EDR)",
+      "Pre-Flight & Post-Flight Telemetry Logs",
+      "Competition Rule Compliance",
+      "Standard Operating Procedures (SOP)"
+    ],
+    "leadRole": "Documentation Lead"
+  },
+  {
+    "id": "finance",
+    "name": "Finance & Inventory",
+    "icon": "Wallet",
+    "description": "Component bill of materials (BOM), lab inventory tracking, budget forecasting, and high-reliability aerospace procurement.",
+    "focusAreas": [
+      "BOM & Hardware Asset Tracking",
+      "Budget Forecasting & Allocation",
+      "Vendor Sourcing & Quality Control",
+      "Lab Equipment Maintenance"
+    ],
+    "leadRole": "Finance & Logistics Head"
+  },
+  {
+    "id": "social",
+    "name": "Social Media & PR",
+    "icon": "Megaphone",
+    "description": "Digital storytelling, flight demo reels, symposium outreach, community workshops, and committee recruitment campaigns.",
+    "focusAreas": [
+      "Flight Demonstration Reels",
+      "Technical Workshops & Webinars",
+      "Branding & Digital Identity",
+      "Recruitment Campaigns"
+    ],
+    "leadRole": "Public Relations Lead"
+  }
+]
