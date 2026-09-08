@@ -30,12 +30,10 @@ export default function Navbar() {
 
     const sections = [
       "home",
-      "about",
       "subsystems",
-      "team",
-      "journey",
       "projects",
       "achievements",
+      "gallery",
       "sponsors",
     ];
 

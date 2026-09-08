@@ -125,8 +125,8 @@ export default function Achievements() {
           </ScrollReveal>
         </div>
 
-        {/* 2. Competition Trophies & Records Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
+        {/* 2. Competition Trophies & Records Grid / Gallery */}
+        <div id="gallery" className="scroll-mt-28 grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
           {records.map((record, index) => (
             <ScrollReveal key={record.id} delay={0.1 * index} direction="up" className="h-full">
               <Link

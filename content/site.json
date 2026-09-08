@@ -30,20 +30,8 @@
       "href": "#home"
     },
     {
-      "label": "About",
-      "href": "#about"
-    },
-    {
       "label": "Subsystems",
       "href": "#subsystems"
-    },
-    {
-      "label": "Leadership",
-      "href": "#team"
-    },
-    {
-      "label": "Journey",
-      "href": "#journey"
     },
     {
       "label": "Projects",
@@ -52,6 +40,10 @@
     {
       "label": "Achievements",
       "href": "#achievements"
+    },
+    {
+      "label": "Gallery",
+      "href": "#gallery"
     },
     {
       "label": "Sponsors",
