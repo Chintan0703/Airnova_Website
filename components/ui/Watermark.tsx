@@ -16,7 +16,6 @@ export default function Watermark({
   opacity = 0.05,
   className = "",
   angle = -5,
-  repeat = false,
 }: WatermarkProps) {
   // Ensure opacity stays within the safe WCAG 2.1 AA range of 4% to 8%
   const safeOpacity = Math.min(Math.max(opacity, 0.03), 0.08);
@@ -34,11 +33,6 @@ export default function Watermark({
         <span className="font-display text-4xl sm:text-6xl md:text-8xl lg:text-9xl font-black uppercase tracking-[0.2em] whitespace-nowrap text-brand-muted block">
           {text}
         </span>
-        {repeat && (
-          <span className="font-display text-3xl sm:text-5xl md:text-7xl lg:text-8xl font-black uppercase tracking-[0.25em] whitespace-nowrap text-brand-muted block mt-6 opacity-60">
-            {siteData.tagline}
-          </span>
-        )}
       </div>
     </div>
   );

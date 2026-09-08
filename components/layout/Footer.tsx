@@ -65,11 +65,14 @@ export default function Footer() {
                 )}
               </div>
               <div className="flex flex-col">
-                <span className="font-display font-extrabold tracking-wider text-xl text-brand-light">
+                <span className="font-display font-extrabold tracking-wider text-xl text-brand-light leading-tight">
                   {siteData.name}
                 </span>
-                <span className="text-[10px] uppercase font-mono tracking-widest text-brand-orange">
-                  Drone & Aerospace Committee
+                <span className="text-[9.5px] uppercase font-mono tracking-wider text-brand-orange font-bold -mt-0.5">
+                  DREAM৹BUILD৹FLY
+                </span>
+                <span className="text-[8px] uppercase font-mono tracking-widest text-brand-muted">
+                  FLYING BEYOND LIMITS
                 </span>
               </div>
             </Link>

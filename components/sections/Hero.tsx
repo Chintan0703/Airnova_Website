@@ -53,12 +53,11 @@ export default function Hero() {
       id="home"
       className="relative min-h-[94vh] flex flex-col justify-center items-center px-4 sm:px-6 lg:px-8 pt-20 pb-16 overflow-hidden bg-radial-gradient"
     >
-      {/* 1. Backdrop Watermark Layer (Developer C primitive) */}
+      {/* 1. Backdrop Watermark Layer */}
       <Watermark
-        text={siteData.watermark}
+        text={siteData.watermark || "Flying Limitless"}
         opacity={0.06}
         angle={-4}
-        repeat={true}
       />
 
       {/* 2. Ambient Aerospace Glow Orbs */}

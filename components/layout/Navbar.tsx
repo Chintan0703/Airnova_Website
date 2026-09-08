@@ -112,11 +112,14 @@ export default function Navbar() {
               )}
             </div>
             <div className="flex flex-col">
-              <span className="font-display font-extrabold tracking-wider text-xl text-brand-light group-hover:text-brand-orange transition-colors">
+              <span className="font-display font-extrabold tracking-wider text-xl text-brand-light group-hover:text-brand-orange transition-colors leading-tight">
                 {siteData.name}
               </span>
-              <span className="text-[10px] uppercase font-mono tracking-widest text-brand-muted -mt-1 group-hover:text-brand-light/80 transition-colors">
-                Aero & UAV Squadron
+              <span className="text-[9.5px] uppercase font-mono tracking-wider text-brand-orange font-bold -mt-0.5 group-hover:text-amber-400 transition-colors">
+                DREAM৹BUILD৹FLY
+              </span>
+              <span className="text-[8px] uppercase font-mono tracking-widest text-brand-muted group-hover:text-brand-light/80 transition-colors">
+                FLYING BEYOND LIMITS
               </span>
             </div>
           </Link>
