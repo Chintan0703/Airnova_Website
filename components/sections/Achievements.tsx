@@ -16,10 +16,11 @@ import ScrollReveal from "@/components/ui/ScrollReveal";
 import Watermark from "@/components/ui/Watermark";
 import AnimatedCounter from "@/components/ui/AnimatedCounter";
 import achievementsData from "@/content/achievements.json";
+import { Achievement } from "@/lib/types";
 
 export default function Achievements() {
   const stats = achievementsData.stats;
-  const records = achievementsData.records;
+  const records: Achievement[] = (achievementsData.records as Achievement[]) || [];
 
   return (
     <section

@@ -6,48 +6,5 @@
     "Prominent brand exposure on flight airframes, competition jerseys, symposiums, and national UAV challenges.",
     "Collaborative R&D testing opportunities with our multidisciplinary aerodynamic test benches."
   ],
-  "companies": [
-    {
-      "id": "comp_1",
-      "name": "Aerospace Dynamics Corp",
-      "description": "Pioneering aerospace structures, supersonic wind-tunnel instrumentation, and advanced aerodynamics testing rigs.",
-      "logoPlaceholder": "",
-      "websiteUrl": "https://example.com"
-    },
-    {
-      "id": "comp_2",
-      "name": "Avionics Cloud Telemetry",
-      "description": "Real-time telemetry networks, high-bandwidth RF links, and mission ground station control software.",
-      "logoPlaceholder": "",
-      "websiteUrl": "https://example.com"
-    },
-    {
-      "id": "comp_3",
-      "name": "CarbonTech Composites",
-      "description": "Ultra-high-modulus carbon fiber fabrics, epoxy infusion resins, and vacuum bagging supplies for lightweight UAV airframes.",
-      "logoPlaceholder": "",
-      "websiteUrl": "https://example.com"
-    },
-    {
-      "id": "comp_4",
-      "name": "Quantum ESC Systems",
-      "description": "High-voltage Electronic Speed Controllers, brushless motor drivers, and intelligent power distribution units.",
-      "logoPlaceholder": "",
-      "websiteUrl": "https://example.com"
-    },
-    {
-      "id": "comp_5",
-      "name": "Precision CNC Machining",
-      "description": "5-axis aerospace-grade aluminum milling, titanium component turning, and custom motor mount fabrication.",
-      "logoPlaceholder": "",
-      "websiteUrl": "https://example.com"
-    },
-    {
-      "id": "comp_6",
-      "name": "AeroPropellers Labs",
-      "description": "Computational fluid dynamics optimized carbon propeller blades and low-noise propulsion testing equipment.",
-      "logoPlaceholder": "",
-      "websiteUrl": "https://example.com"
-    }
-  ]
+  "companies": []
 }

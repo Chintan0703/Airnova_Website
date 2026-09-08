@@ -1,50 +1,9 @@
 {
   "stats": {
-    "competitionsAttended": 14,
-    "projectsCompleted": 22,
-    "activeMembers": 45,
+    "competitionsAttended": 20,
+    "projectsCompleted": 10,
+    "activeMembers": 35,
     "flightHoursLogged": 380
   },
-  "records": [
-    {
-      "id": "nat-drone-2024",
-      "title": "National Drone Conclave 2024",
-      "event": "Autonomous Waypoint Precision Challenge",
-      "year": "2024",
-      "rank": "1st Place — Gold Trophy",
-      "category": "Autonomous UAV Navigation",
-      "description": "Completed a GPS-denied obstacle course in record time using onboard optical flow and edge vision telemetry.",
-      "imagePlaceholder": ""
-    },
-    {
-      "id": "aero-design-2023",
-      "title": "AeroDesign Student Challenge",
-      "event": "Heavy Payload Fixed-Wing Division",
-      "year": "2023",
-      "rank": "2nd Place — Silver Medal",
-      "category": "Fixed-Wing Aerodynamics",
-      "description": "Demonstrated a 3.4 payload-to-empty-weight ratio with our custom balsa-carbon composite airframe.",
-      "imagePlaceholder": "/images/achievements/award2.jpg"
-    },
-    {
-      "id": "biomimicry-symp-2023",
-      "title": "International Bio-Robotics Symposium",
-      "event": "Micro Flapping-Wing Aerial Showcase",
-      "year": "2023",
-      "rank": "Best Technical Innovation Award",
-      "category": "Biomimetic Flight",
-      "description": "Recognized for innovative dual-stage gearboxes and aeroelastic wing flex in the Aquila bio-flapper.",
-      "imagePlaceholder": "/images/achievements/award3.jpg"
-    },
-    {
-      "id": "rocketry-derby-2022",
-      "title": "Inter-Collegiate Sounding Rocket Derby",
-      "event": "Altitude Accuracy & Telemetry Recovery",
-      "year": "2022",
-      "rank": "1st Place — Precision Apogee",
-      "category": "Sounding Rocketry",
-      "description": "Achieved within 2.1% of target 1,000m apogee with dual-altimeter deployed recovery chutes.",
-      "imagePlaceholder": "/images/achievements/award4.jpg"
-    }
-  ]
+  "records": []
 }

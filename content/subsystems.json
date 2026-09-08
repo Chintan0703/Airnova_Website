@@ -10,8 +10,18 @@
       "FEA Structural Stress Testing",
       "Weight-to-Stiffness Profiling"
     ],
-    "leadRole": "Aerodynamics Lead",
-    "leadName": "Rohan Varma"
+    "leadRole": "Aerodynamics & Structure Leads",
+    "leadName": "Nitish Mishra & Rohan Varma",
+    "heads": [
+      {
+        "name": "Nitish Mishra",
+        "role": "Aerodynamics Head"
+      },
+      {
+        "name": "Rohan Varma",
+        "role": "Structure & Composites Head"
+      }
+    ]
   },
   {
     "id": "propulsion",
@@ -25,7 +35,13 @@
       "Propeller Aerodynamic Efficiency"
     ],
     "leadRole": "Propulsion Systems Lead",
-    "leadName": "Ananya Deshmukh"
+    "leadName": "Ananya Deshmukh",
+    "heads": [
+      {
+        "name": "Ananya Deshmukh",
+        "role": "Propulsion Systems Lead"
+      }
+    ]
   },
   {
     "id": "controls",
@@ -39,7 +55,13 @@
       "Long-Range Telemetry Links"
     ],
     "leadRole": "Avionics & Controls Lead",
-    "leadName": "Vikramaditya Rao"
+    "leadName": "Vikramaditya Rao",
+    "heads": [
+      {
+        "name": "Vikramaditya Rao",
+        "role": "Avionics & Controls Lead"
+      }
+    ]
   },
   {
     "id": "rd",
@@ -53,7 +75,13 @@
       "Novel VTOL Transitions"
     ],
     "leadRole": "R&D Principal",
-    "leadName": "Devansh Patel"
+    "leadName": "Devansh Patel",
+    "heads": [
+      {
+        "name": "Devansh Patel",
+        "role": "R&D Principal"
+      }
+    ]
   },
   {
     "id": "sponsorship",
@@ -67,7 +95,13 @@
       "Alumni & Industry Networking"
     ],
     "leadRole": "Corporate Relations Head",
-    "leadName": "Pooja Hegde"
+    "leadName": "Pooja Hegde",
+    "heads": [
+      {
+        "name": "Pooja Hegde",
+        "role": "Corporate Relations Head"
+      }
+    ]
   },
   {
     "id": "documentation",
@@ -81,7 +115,13 @@
       "Standard Operating Procedures (SOP)"
     ],
     "leadRole": "Documentation Lead",
-    "leadName": "Siddharth Nair"
+    "leadName": "Siddharth Nair",
+    "heads": [
+      {
+        "name": "Siddharth Nair",
+        "role": "Documentation Lead"
+      }
+    ]
   },
   {
     "id": "finance",
@@ -95,7 +135,13 @@
       "Lab Equipment Maintenance"
     ],
     "leadRole": "Finance & Logistics Head",
-    "leadName": "Tanvi Joshi"
+    "leadName": "Tanvi Joshi",
+    "heads": [
+      {
+        "name": "Tanvi Joshi",
+        "role": "Finance & Logistics Head"
+      }
+    ]
   },
   {
     "id": "social",
@@ -109,6 +155,12 @@
       "Recruitment Campaigns"
     ],
     "leadRole": "Public Relations Lead",
-    "leadName": "Aditya Sen"
+    "leadName": "Aditya Sen",
+    "heads": [
+      {
+        "name": "Aditya Sen",
+        "role": "Public Relations Lead"
+      }
+    ]
   }
 ]

@@ -132,12 +132,27 @@ export default function Subsystems() {
                   {/* Card Footer */}
                   <div className="pt-4 border-t border-brand-slate/60 flex items-center justify-between text-xs font-mono">
                     <div className="flex flex-col">
-                      {sub.leadName && (
-                        <span className="text-brand-light font-semibold text-[11px]">{sub.leadName}</span>
+                      {sub.heads && sub.heads.length > 0 ? (
+                        <div className="space-y-0.5">
+                          {sub.heads.map((head, hIdx) => (
+                            <div key={hIdx} className="flex items-center gap-1.5 flex-wrap">
+                              <span className="text-brand-light font-semibold text-[11px]">{head.name}</span>
+                              {head.role && (
+                                <span className="text-brand-orange text-[10px]">({head.role})</span>
+                              )}
+                            </div>
+                          ))}
+                        </div>
+                      ) : (
+                        <>
+                          {sub.leadName && (
+                            <span className="text-brand-light font-semibold text-[11px]">{sub.leadName}</span>
+                          )}
+                          <span className="text-brand-orange text-[10px]">{sub.leadRole}</span>
+                        </>
                       )}
-                      <span className="text-brand-orange text-[10px]">{sub.leadRole}</span>
                     </div>
-                    <ChevronRight className="w-4 h-4 text-brand-muted group-hover:text-brand-orange group-hover:translate-x-1 transition-all" />
+                    <ChevronRight className="w-4 h-4 text-brand-muted group-hover:text-brand-orange group-hover:translate-x-1 transition-all shrink-0" />
                   </div>
                 </div>
               </ScrollReveal>
@@ -201,11 +216,21 @@ export default function Subsystems() {
               </ul>
             </div>
 
-            <div className="pt-4 border-t border-brand-slate flex items-center justify-between text-xs font-mono">
+            <div className="pt-4 border-t border-brand-slate flex flex-col sm:flex-row sm:items-center justify-between text-xs font-mono gap-2">
               <span className="text-brand-muted">Wing Leadership:</span>
-              <span className="text-brand-orange font-bold">
-                {selectedSubsystem.leadName ? `${selectedSubsystem.leadName} (${selectedSubsystem.leadRole})` : selectedSubsystem.leadRole}
-              </span>
+              <div className="text-left sm:text-right space-y-0.5">
+                {selectedSubsystem.heads && selectedSubsystem.heads.length > 0 ? (
+                  selectedSubsystem.heads.map((h, hIdx) => (
+                    <div key={hIdx} className="text-brand-orange font-bold">
+                      {h.name} {h.role ? `(${h.role})` : ""}
+                    </div>
+                  ))
+                ) : (
+                  <span className="text-brand-orange font-bold">
+                    {selectedSubsystem.leadName ? `${selectedSubsystem.leadName} (${selectedSubsystem.leadRole})` : selectedSubsystem.leadRole}
+                  </span>
+                )}
+              </div>
             </div>
           </div>
         </div>

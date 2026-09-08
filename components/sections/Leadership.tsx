@@ -187,17 +187,36 @@ export default function Leadership() {
               {subsystemsData.map((sub, idx) => (
                 <div
                   key={sub.id}
-                  className="glass-panel p-5 rounded-xl border border-brand-slate hover:border-brand-orange/40 transition-all group"
+                  className="glass-panel p-5 rounded-xl border border-brand-slate hover:border-brand-orange/40 transition-all group flex flex-col justify-between"
                 >
-                  <span className="text-[10px] font-mono text-brand-orange uppercase block mb-1">
-                    {sub.name}
-                  </span>
-                  <h4 className="font-heading font-bold text-sm text-brand-light group-hover:text-brand-orange transition-colors">
-                    {sub.leadName || sub.leadRole}
-                  </h4>
-                  <p className="text-[11px] text-brand-muted mt-0.5 leading-snug font-mono">
-                    {sub.leadRole}
-                  </p>
+                  <div>
+                    <span className="text-[10px] font-mono text-brand-orange uppercase block mb-1">
+                      {sub.name}
+                    </span>
+                    {sub.heads && sub.heads.length > 0 ? (
+                      <div className="space-y-2 mt-1">
+                        {sub.heads.map((head, hIdx) => (
+                          <div key={hIdx} className="border-b border-brand-slate/40 last:border-b-0 pb-1.5 last:pb-0">
+                            <h4 className="font-heading font-bold text-sm text-brand-light group-hover:text-brand-orange transition-colors">
+                              {head.name}
+                            </h4>
+                            <p className="text-[11px] text-brand-muted mt-0.5 leading-snug font-mono">
+                              {head.role || sub.leadRole}
+                            </p>
+                          </div>
+                        ))}
+                      </div>
+                    ) : (
+                      <>
+                        <h4 className="font-heading font-bold text-sm text-brand-light group-hover:text-brand-orange transition-colors">
+                          {sub.leadName || sub.leadRole}
+                        </h4>
+                        <p className="text-[11px] text-brand-muted mt-0.5 leading-snug font-mono">
+                          {sub.leadRole}
+                        </p>
+                      </>
+                    )}
+                  </div>
                 </div>
               ))}
             </div>

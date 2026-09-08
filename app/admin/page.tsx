@@ -24,6 +24,8 @@ import {
   Download,
   UploadCloud,
   ChevronRight,
+  ChevronUp,
+  ChevronDown,
   RefreshCw,
   LogOut,
   Sliders,
@@ -202,6 +204,12 @@ export default function AdminDashboard() {
       focusAreas: ["Focus Area 1", "Focus Area 2"],
       leadName: "Subsystem Head Name",
       leadRole: "Division Lead",
+      heads: [
+        {
+          name: "Subsystem Head Name",
+          role: "Division Lead",
+        },
+      ],
     };
     setData((prev: any) => ({ ...prev, subsystems: [...prev.subsystems, newWing] }));
     setHasUnsavedChanges(true);
@@ -210,6 +218,104 @@ export default function AdminDashboard() {
   const removeSubsystem = (index: number) => {
     const updated = data.subsystems.filter((_: any, i: number) => i !== index);
     setData((prev: any) => ({ ...prev, subsystems: updated }));
+    setHasUnsavedChanges(true);
+  };
+
+  const moveSubsystem = (fromIndex: number, toIndex: number) => {
+    if (toIndex < 0 || toIndex >= (data.subsystems || []).length) return;
+    const updated = [...data.subsystems];
+    const [moved] = updated.splice(fromIndex, 1);
+    updated.splice(toIndex, 0, moved);
+    setData((prev: any) => ({ ...prev, subsystems: updated }));
+    setHasUnsavedChanges(true);
+  };
+
+  const addSubsystemHead = (subIndex: number) => {
+    const updated = [...data.subsystems];
+    const currentHeads =
+      updated[subIndex].heads ||
+      (updated[subIndex].leadName
+        ? [{ name: updated[subIndex].leadName, role: updated[subIndex].leadRole || "Lead" }]
+        : []);
+    const newHeads = [...currentHeads, { name: "New Subsystem Head", role: "Division Co-Lead" }];
+    updated[subIndex] = {
+      ...updated[subIndex],
+      heads: newHeads,
+      leadName: newHeads.map((h: any) => h.name).filter(Boolean).join(" & "),
+    };
+    setData((prev: any) => ({ ...prev, subsystems: updated }));
+    setHasUnsavedChanges(true);
+  };
+
+  const updateSubsystemHead = (
+    subIndex: number,
+    headIndex: number,
+    field: "name" | "role",
+    value: string
+  ) => {
+    const updated = [...data.subsystems];
+    const currentHeads = [
+      ...(updated[subIndex].heads ||
+        (updated[subIndex].leadName
+          ? [{ name: updated[subIndex].leadName, role: updated[subIndex].leadRole || "Lead" }]
+          : [{ name: "", role: "" }])),
+    ];
+    currentHeads[headIndex] = { ...currentHeads[headIndex], [field]: value };
+    updated[subIndex] = {
+      ...updated[subIndex],
+      heads: currentHeads,
+      leadName: currentHeads.map((h: any) => h.name).filter(Boolean).join(" & "),
+    };
+    setData((prev: any) => ({ ...prev, subsystems: updated }));
+    setHasUnsavedChanges(true);
+  };
+
+  const removeSubsystemHead = (subIndex: number, headIndex: number) => {
+    const updated = [...data.subsystems];
+    const currentHeads = (updated[subIndex].heads || []).filter(
+      (_: any, i: number) => i !== headIndex
+    );
+    updated[subIndex] = {
+      ...updated[subIndex],
+      heads: currentHeads,
+      leadName: currentHeads.map((h: any) => h.name).filter(Boolean).join(" & "),
+    };
+    setData((prev: any) => ({ ...prev, subsystems: updated }));
+    setHasUnsavedChanges(true);
+  };
+
+  const moveProject = (fromIndex: number, toIndex: number) => {
+    if (toIndex < 0 || toIndex >= (data.projects || []).length) return;
+    const updated = [...data.projects];
+    const [moved] = updated.splice(fromIndex, 1);
+    updated.splice(toIndex, 0, moved);
+    setData((prev: any) => ({ ...prev, projects: updated }));
+    setHasUnsavedChanges(true);
+  };
+
+  const moveAchievementRecord = (fromIndex: number, toIndex: number) => {
+    const list = data.achievements?.records || [];
+    if (toIndex < 0 || toIndex >= list.length) return;
+    const updated = [...list];
+    const [moved] = updated.splice(fromIndex, 1);
+    updated.splice(toIndex, 0, moved);
+    setData((prev: any) => ({
+      ...prev,
+      achievements: { ...prev.achievements, records: updated },
+    }));
+    setHasUnsavedChanges(true);
+  };
+
+  const moveSponsorCompany = (fromIndex: number, toIndex: number) => {
+    const list = data.sponsors?.companies || [];
+    if (toIndex < 0 || toIndex >= list.length) return;
+    const updated = [...list];
+    const [moved] = updated.splice(fromIndex, 1);
+    updated.splice(toIndex, 0, moved);
+    setData((prev: any) => ({
+      ...prev,
+      sponsors: { ...prev.sponsors, companies: updated },
+    }));
     setHasUnsavedChanges(true);
   };
 
@@ -1914,57 +2020,56 @@ export default function AdminDashboard() {
                 {data.subsystems.map((sub: any, idx: number) => (
                   <div
                     key={sub.id || idx}
-                    className="p-5 rounded-xl bg-brand-navy/80 border border-brand-slate space-y-3"
+                    className="p-5 rounded-xl bg-brand-navy/80 border border-brand-slate space-y-4"
                   >
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-2">
-                        <span className="text-xs font-mono px-2 py-0.5 rounded bg-brand-slate text-brand-orange font-bold">
+                    <div className="flex items-center justify-between gap-3">
+                      <div className="flex items-center gap-2 flex-grow">
+                        <span className="text-xs font-mono px-2 py-0.5 rounded bg-brand-slate text-brand-orange font-bold shrink-0">
                           WING 0{idx + 1}
                         </span>
                         <input
                           type="text"
                           value={sub.name}
                           onChange={(e) => updateSubsystem(idx, "name", e.target.value)}
-                          className="px-2.5 py-1 rounded bg-brand-slate border border-brand-border text-sm font-bold text-brand-light"
+                          className="px-2.5 py-1 rounded bg-brand-slate border border-brand-border text-sm font-bold text-brand-light flex-grow max-w-sm"
                         />
                       </div>
 
-                      <button
-                        onClick={() => removeSubsystem(idx)}
-                        className="p-1.5 rounded bg-red-500/10 text-red-400 hover:bg-red-500 hover:text-white border border-red-500/30 transition-colors"
-                        title="Delete Subsystem"
-                      >
-                        <Trash2 className="w-3.5 h-3.5" />
-                      </button>
+                      <div className="flex items-center gap-2 shrink-0">
+                        {/* Reorder Buttons */}
+                        <div className="flex items-center gap-1 bg-brand-navy rounded-lg p-0.5 border border-brand-slate">
+                          <button
+                            type="button"
+                            disabled={idx === 0}
+                            onClick={() => moveSubsystem(idx, idx - 1)}
+                            className="p-1.5 rounded text-brand-muted hover:text-brand-orange disabled:opacity-20 disabled:hover:text-brand-muted transition-colors"
+                            title="Move Wing Up"
+                          >
+                            <ChevronUp className="w-3.5 h-3.5" />
+                          </button>
+                          <button
+                            type="button"
+                            disabled={idx === (data.subsystems || []).length - 1}
+                            onClick={() => moveSubsystem(idx, idx + 1)}
+                            className="p-1.5 rounded text-brand-muted hover:text-brand-orange disabled:opacity-20 disabled:hover:text-brand-muted transition-colors"
+                            title="Move Wing Down"
+                          >
+                            <ChevronDown className="w-3.5 h-3.5" />
+                          </button>
+                        </div>
+
+                        <button
+                          type="button"
+                          onClick={() => removeSubsystem(idx)}
+                          className="p-1.5 rounded bg-red-500/10 text-red-400 hover:bg-red-500 hover:text-white border border-red-500/30 transition-colors"
+                          title="Delete Subsystem"
+                        >
+                          <Trash2 className="w-3.5 h-3.5" />
+                        </button>
+                      </div>
                     </div>
 
-                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                      <div>
-                        <label className="block text-[11px] font-mono text-brand-muted mb-1">
-                          Subsystem Head / Lead Name
-                        </label>
-                        <input
-                          type="text"
-                          placeholder="e.g. Aarav Sharma"
-                          value={sub.leadName || ""}
-                          onChange={(e) => updateSubsystem(idx, "leadName", e.target.value)}
-                          className="w-full px-3 py-1.5 rounded bg-brand-slate border border-brand-border text-xs text-brand-light font-bold"
-                        />
-                      </div>
-
-                      <div>
-                        <label className="block text-[11px] font-mono text-brand-muted mb-1">
-                          Division Operational Lead Role
-                        </label>
-                        <input
-                          type="text"
-                          placeholder="e.g. Division Lead"
-                          value={sub.leadRole || ""}
-                          onChange={(e) => updateSubsystem(idx, "leadRole", e.target.value)}
-                          className="w-full px-3 py-1.5 rounded bg-brand-slate border border-brand-border text-xs text-brand-light"
-                        />
-                      </div>
-
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                       <div>
                         <label className="block text-[11px] font-mono text-brand-muted mb-1">
                           Icon Glyph (Wing, Rocket, Cpu, etc.)
@@ -1974,6 +2079,25 @@ export default function AdminDashboard() {
                           value={sub.icon}
                           onChange={(e) => updateSubsystem(idx, "icon", e.target.value)}
                           className="w-full px-3 py-1.5 rounded bg-brand-slate border border-brand-border text-xs text-brand-light font-mono"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="block text-[11px] font-mono text-brand-muted mb-1">
+                          Focus Areas (comma-separated)
+                        </label>
+                        <input
+                          type="text"
+                          value={Array.isArray(sub.focusAreas) ? sub.focusAreas.join(", ") : (sub.focusAreas || "")}
+                          onChange={(e) =>
+                            updateSubsystem(
+                              idx,
+                              "focusAreas",
+                              e.target.value.split(",").map((s: string) => s.trim()).filter(Boolean)
+                            )
+                          }
+                          placeholder="e.g. CFD Optimization, Carbon Fiber Monocoque"
+                          className="w-full px-3 py-1.5 rounded bg-brand-slate border border-brand-border text-xs text-brand-light"
                         />
                       </div>
                     </div>
@@ -1988,6 +2112,66 @@ export default function AdminDashboard() {
                         onChange={(e) => updateSubsystem(idx, "description", e.target.value)}
                         className="w-full px-3 py-1.5 rounded bg-brand-slate border border-brand-border text-xs text-brand-light resize-none"
                       />
+                    </div>
+
+                    {/* Subsystem Heads & Co-Leads (Multiple Heads Support) */}
+                    <div className="p-3.5 rounded-xl bg-brand-slate/40 border border-brand-slate space-y-3">
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <span className="text-xs font-mono text-brand-orange uppercase font-bold block">
+                            Division Heads & Co-Leads ({((sub.heads && sub.heads.length > 0) ? sub.heads : (sub.leadName ? [{ name: sub.leadName, role: sub.leadRole || "Division Lead" }] : [])).length})
+                          </span>
+                          <span className="text-[10px] font-mono text-brand-muted">
+                            Supports single head or multiple co-leads (e.g. Aerodynamics Head & Structure Head)
+                          </span>
+                        </div>
+                        <button
+                          type="button"
+                          onClick={() => addSubsystemHead(idx)}
+                          className="inline-flex items-center gap-1 px-2.5 py-1 rounded bg-brand-orange/15 hover:bg-brand-orange text-brand-orange hover:text-white text-xs font-mono transition-colors border border-brand-orange/30"
+                        >
+                          <Plus className="w-3 h-3" />
+                          <span>Add Co-Lead</span>
+                        </button>
+                      </div>
+
+                      <div className="space-y-2.5">
+                        {((sub.heads && sub.heads.length > 0)
+                          ? sub.heads
+                          : (sub.leadName ? [{ name: sub.leadName, role: sub.leadRole || "Division Lead" }] : [{ name: "", role: "Division Lead" }])
+                        ).map((head: any, hIdx: number) => (
+                          <div
+                            key={hIdx}
+                            className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 p-2.5 rounded-lg bg-brand-navy/60 border border-brand-slate/80"
+                          >
+                            <span className="text-[10px] font-mono text-brand-muted w-14 shrink-0">
+                              Lead #{hIdx + 1}
+                            </span>
+                            <input
+                              type="text"
+                              placeholder="Head / Lead Full Name (e.g. Nitish Mishra)"
+                              value={head.name || ""}
+                              onChange={(e) => updateSubsystemHead(idx, hIdx, "name", e.target.value)}
+                              className="flex-grow px-3 py-1.5 rounded bg-brand-slate border border-brand-border text-xs text-brand-light font-bold"
+                            />
+                            <input
+                              type="text"
+                              placeholder="Role / Title (e.g. Aerodynamics Head)"
+                              value={head.role || ""}
+                              onChange={(e) => updateSubsystemHead(idx, hIdx, "role", e.target.value)}
+                              className="sm:w-56 px-3 py-1.5 rounded bg-brand-slate border border-brand-border text-xs text-brand-light font-mono"
+                            />
+                            <button
+                              type="button"
+                              onClick={() => removeSubsystemHead(idx, hIdx)}
+                              className="p-1.5 rounded bg-red-500/10 text-red-400 hover:bg-red-500 hover:text-white border border-red-500/30 transition-colors shrink-0 self-end sm:self-auto"
+                              title="Remove Lead"
+                            >
+                              <Trash2 className="w-3.5 h-3.5" />
+                            </button>
+                          </div>
+                        ))}
+                      </div>
                     </div>
                   </div>
                 ))}
@@ -2038,6 +2222,28 @@ export default function AdminDashboard() {
                       </div>
 
                       <div className="flex items-center gap-3">
+                        {/* Reorder Buttons */}
+                        <div className="flex items-center gap-1 bg-brand-navy rounded-lg p-0.5 border border-brand-slate">
+                          <button
+                            type="button"
+                            disabled={idx === 0}
+                            onClick={() => moveProject(idx, idx - 1)}
+                            className="p-1.5 rounded text-brand-muted hover:text-brand-orange disabled:opacity-20 disabled:hover:text-brand-muted transition-colors"
+                            title="Move Vehicle Up"
+                          >
+                            <ChevronUp className="w-3.5 h-3.5" />
+                          </button>
+                          <button
+                            type="button"
+                            disabled={idx === (data.projects || []).length - 1}
+                            onClick={() => moveProject(idx, idx + 1)}
+                            className="p-1.5 rounded text-brand-muted hover:text-brand-orange disabled:opacity-20 disabled:hover:text-brand-muted transition-colors"
+                            title="Move Vehicle Down"
+                          >
+                            <ChevronDown className="w-3.5 h-3.5" />
+                          </button>
+                        </div>
+
                         <Link
                           href={`/projects/${proj.id}`}
                           target="_blank"
@@ -2407,6 +2613,28 @@ export default function AdminDashboard() {
                       </div>
 
                       <div className="flex items-center gap-3">
+                        {/* Reorder Buttons */}
+                        <div className="flex items-center gap-1 bg-brand-navy rounded-lg p-0.5 border border-brand-slate">
+                          <button
+                            type="button"
+                            disabled={idx === 0}
+                            onClick={() => moveAchievementRecord(idx, idx - 1)}
+                            className="p-1.5 rounded text-brand-muted hover:text-brand-orange disabled:opacity-20 disabled:hover:text-brand-muted transition-colors"
+                            title="Move Record Up"
+                          >
+                            <ChevronUp className="w-3.5 h-3.5" />
+                          </button>
+                          <button
+                            type="button"
+                            disabled={idx === (data.achievements?.records || []).length - 1}
+                            onClick={() => moveAchievementRecord(idx, idx + 1)}
+                            className="p-1.5 rounded text-brand-muted hover:text-brand-orange disabled:opacity-20 disabled:hover:text-brand-muted transition-colors"
+                            title="Move Record Down"
+                          >
+                            <ChevronDown className="w-3.5 h-3.5" />
+                          </button>
+                        </div>
+
                         <Link
                           href={`/achievements/${rec.id}`}
                           target="_blank"
@@ -2838,14 +3066,38 @@ export default function AdminDashboard() {
                         </span>
                       </div>
 
-                      <button
-                        type="button"
-                        onClick={() => removeSponsorCompany(idx)}
-                        className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-red-500/10 hover:bg-red-500/20 text-red-400 border border-red-500/30 text-xs font-mono transition-colors"
-                      >
-                        <Trash2 className="w-3.5 h-3.5" />
-                        <span>Remove Company</span>
-                      </button>
+                      <div className="flex items-center gap-2">
+                        {/* Reorder Buttons */}
+                        <div className="flex items-center gap-1 bg-brand-navy rounded-lg p-0.5 border border-brand-slate">
+                          <button
+                            type="button"
+                            disabled={idx === 0}
+                            onClick={() => moveSponsorCompany(idx, idx - 1)}
+                            className="p-1.5 rounded text-brand-muted hover:text-brand-orange disabled:opacity-20 disabled:hover:text-brand-muted transition-colors"
+                            title="Move Company Up"
+                          >
+                            <ChevronUp className="w-3.5 h-3.5" />
+                          </button>
+                          <button
+                            type="button"
+                            disabled={idx === (data.sponsors?.companies || []).length - 1}
+                            onClick={() => moveSponsorCompany(idx, idx + 1)}
+                            className="p-1.5 rounded text-brand-muted hover:text-brand-orange disabled:opacity-20 disabled:hover:text-brand-muted transition-colors"
+                            title="Move Company Down"
+                          >
+                            <ChevronDown className="w-3.5 h-3.5" />
+                          </button>
+                        </div>
+
+                        <button
+                          type="button"
+                          onClick={() => removeSponsorCompany(idx)}
+                          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-red-500/10 hover:bg-red-500/20 text-red-400 border border-red-500/30 text-xs font-mono transition-colors"
+                        >
+                          <Trash2 className="w-3.5 h-3.5" />
+                          <span>Remove Company</span>
+                        </button>
+                      </div>
                     </div>
 
                     {/* Form Fields */}

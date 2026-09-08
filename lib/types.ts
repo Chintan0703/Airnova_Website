@@ -54,6 +54,11 @@ export interface SiteConfig {
   };
 }
 
+export interface SubsystemHead {
+  name: string;
+  role?: string;
+}
+
 export interface Subsystem {
   id: string;
   name: string;
@@ -62,6 +67,7 @@ export interface Subsystem {
   focusAreas: string[];
   leadRole?: string;
   leadName?: string;
+  heads?: SubsystemHead[];
 }
 
 export interface Milestone {
