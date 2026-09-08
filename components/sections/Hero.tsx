@@ -2,13 +2,52 @@
 
 import React from "react";
 import Link from "next/link";
-import { ArrowRight, ChevronDown, Compass, Rocket, Shield, Activity } from "lucide-react";
+import { ChevronDown } from "lucide-react";
 import Watermark from "@/components/ui/Watermark";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 import siteData from "@/content/site.json";
 import achievementsData from "@/content/achievements.json";
+import subsystemsData from "@/content/subsystems.json";
+import projectsData from "@/content/projects.json";
 
 export default function Hero() {
+  const tagline = (siteData.tagline || "Flying Beyond Limits").toUpperCase().trim();
+  const words = tagline.split(/\s+/).filter(Boolean);
+
+  const renderTagline = () => {
+    if (words.length <= 1) {
+      return (
+        <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-orange via-orange-400 to-amber-300 drop-shadow-[0_0_35px_rgba(255,122,26,0.35)]">
+          {words[0] || "FLYING"}
+        </span>
+      );
+    }
+    if (words.length === 2) {
+      return (
+        <>
+          {words[0]}{" "}
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-orange via-orange-400 to-amber-300 drop-shadow-[0_0_35px_rgba(255,122,26,0.35)]">
+            {words[1]}
+          </span>
+        </>
+      );
+    }
+    const midIdx = Math.floor(words.length / 2);
+    const firstPart = words.slice(0, midIdx).join(" ");
+    const highlightWord = words[midIdx];
+    const lastPart = words.slice(midIdx + 1).join(" ");
+
+    return (
+      <>
+        {firstPart}{" "}
+        <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-orange via-orange-400 to-amber-300 drop-shadow-[0_0_35px_rgba(255,122,26,0.35)]">
+          {highlightWord}
+        </span>{" "}
+        {lastPart}
+      </>
+    );
+  };
+
   return (
     <section
       id="home"
@@ -33,54 +72,19 @@ export default function Hero() {
       />
 
       {/* 3. Main Hero Interactive Content */}
-      <div className="relative max-w-5xl mx-auto text-center z-10 my-auto">
-        {/* Squadron Flight Readiness Badge */}
-        <ScrollReveal delay={0.1} direction="down">
-          <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-brand-slate/90 border border-brand-orange/40 text-brand-orange text-xs sm:text-sm font-mono tracking-widest uppercase mb-8 shadow-sm backdrop-blur-md">
-            <span className="w-2 h-2 rounded-full bg-brand-orange animate-ping" />
-            <span className="text-brand-light font-semibold">AIRNOVA SQUADRON</span>
-            <span className="text-brand-muted">•</span>
-            <span className="text-brand-orange font-mono">EST. {siteData.establishedYear}</span>
-          </div>
-        </ScrollReveal>
-
+      <div className="relative max-w-5xl mx-auto text-center z-10 my-auto pt-8">
         {/* Brand Display H1 Title */}
         <ScrollReveal delay={0.2} direction="up">
           <h1 className="font-display text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-black tracking-tight text-brand-light leading-[1.08] mb-6">
-            FLYING{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-orange via-orange-400 to-amber-300 drop-shadow-[0_0_35px_rgba(255,122,26,0.35)]">
-              BEYOND
-            </span>{" "}
-            LIMITS
+            {renderTagline()}
           </h1>
         </ScrollReveal>
 
         {/* Tagline / Subtitle */}
         <ScrollReveal delay={0.3} direction="up">
-          <p className="max-w-3xl mx-auto text-base sm:text-lg md:text-xl text-brand-muted leading-relaxed mb-10 font-sans font-normal">
+          <p className="max-w-3xl mx-auto text-base sm:text-lg md:text-xl text-brand-muted leading-relaxed mb-12 font-sans font-normal">
             {siteData.shortDescription}
           </p>
-        </ScrollReveal>
-
-        {/* Primary Call-to-Action Group */}
-        <ScrollReveal delay={0.4} direction="up">
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
-            <Link
-              href={siteData.cta.secondary.href}
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-8 py-3.5 text-base font-semibold text-white bg-brand-orange hover:bg-brand-orange-hover rounded-md shadow-lg shadow-brand-orange/30 hover:shadow-orange-glow transition-all duration-300 group focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange"
-            >
-              <span>{siteData.cta.secondary.label}</span>
-              <ArrowRight className="w-4 h-4 group-hover:translate-x-1.5 transition-transform duration-300" />
-            </Link>
-
-            <Link
-              href={siteData.cta.primary.href}
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-8 py-3.5 text-base font-medium text-brand-light bg-brand-slate hover:bg-brand-slate/80 border border-brand-border hover:border-brand-orange/60 rounded-md transition-all duration-300 shadow-md group focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange"
-            >
-              <Rocket className="w-4 h-4 text-brand-orange group-hover:rotate-12 transition-transform duration-300" />
-              <span>{siteData.cta.primary.label}</span>
-            </Link>
-          </div>
         </ScrollReveal>
 
         {/* Hero Quick Avionics Telemetry Bar */}
@@ -88,7 +92,7 @@ export default function Hero() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 max-w-4xl mx-auto p-4 sm:p-5 rounded-xl glass-panel border border-brand-slate/90 shadow-2xl">
             <div className="p-3 text-center border-r border-brand-slate/60 last:border-none">
               <div className="text-2xl sm:text-3xl font-display font-black text-brand-orange">
-                8
+                {subsystemsData.length}
               </div>
               <div className="text-[11px] sm:text-xs font-mono text-brand-muted uppercase tracking-wider mt-0.5">
                 Subsystems
@@ -97,7 +101,7 @@ export default function Hero() {
 
             <div className="p-3 text-center sm:border-r border-brand-slate/60 last:border-none">
               <div className="text-2xl sm:text-3xl font-display font-black text-brand-ion">
-                7
+                {projectsData.length}
               </div>
               <div className="text-[11px] sm:text-xs font-mono text-brand-muted uppercase tracking-wider mt-0.5">
                 Flagship Builds

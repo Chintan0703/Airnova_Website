@@ -7,6 +7,7 @@ export interface NavigationItem {
 
 export interface SiteConfig {
   name: string;
+  logoImage?: string;
   tagline: string;
   watermark: string;
   shortDescription: string;
@@ -121,20 +122,17 @@ export interface AchievementsData {
   records: Achievement[];
 }
 
-export interface SponsorTier {
-  tierName: string;
-  badgeColor: string;
+export interface SponsorCompany {
+  id: string;
+  name: string;
   description: string;
-  sponsors: {
-    name: string;
-    logoPlaceholder: string;
-    websiteUrl?: string;
-  }[];
+  logoPlaceholder?: string;
+  websiteUrl?: string;
 }
 
 export interface SponsorsData {
   headline: string;
   subtitle: string;
   valueProposition: string[];
-  tiers: SponsorTier[];
+  companies: SponsorCompany[];
 }

@@ -99,21 +99,31 @@ export default function Lightbox({
 
         {/* Visual Simulated Hangar Photo Display */}
         <div className="w-full h-56 sm:h-64 rounded-xl bg-brand-navy border border-brand-slate/80 mb-5 relative overflow-hidden flex items-center justify-center group">
-          <div
-            aria-hidden="true"
-            className="absolute inset-0 bg-blueprint-grid opacity-30"
-          />
-          <div className="text-center z-10 p-4">
-            <div className="w-14 h-14 rounded-2xl bg-brand-slate/80 border border-brand-orange/40 text-brand-orange mx-auto flex items-center justify-center mb-3 shadow-orange-glow">
-              <Award className="w-7 h-7" />
-            </div>
-            <span className="text-xs font-mono uppercase tracking-widest text-brand-light font-bold block">
-              {item.event}
-            </span>
-            <span className="text-[10px] font-mono text-brand-muted mt-1 block">
-              COMPETITION ARCHIVE VERIFIED • {item.year}
-            </span>
-          </div>
+          {item.imagePlaceholder && (item.imagePlaceholder.startsWith("/uploads/") || item.imagePlaceholder.startsWith("http")) ? (
+            <img
+              src={item.imagePlaceholder}
+              alt={item.title}
+              className="w-full h-full object-cover rounded-xl"
+            />
+          ) : (
+            <>
+              <div
+                aria-hidden="true"
+                className="absolute inset-0 bg-blueprint-grid opacity-30"
+              />
+              <div className="text-center z-10 p-4">
+                <div className="w-14 h-14 rounded-2xl bg-brand-slate/80 border border-brand-orange/40 text-brand-orange mx-auto flex items-center justify-center mb-3 shadow-orange-glow">
+                  <Award className="w-7 h-7" />
+                </div>
+                <span className="text-xs font-mono uppercase tracking-widest text-brand-light font-bold block">
+                  {item.event}
+                </span>
+                <span className="text-[10px] font-mono text-brand-muted mt-1 block">
+                  COMPETITION ARCHIVE VERIFIED • {item.year}
+                </span>
+              </div>
+            </>
+          )}
         </div>
 
         {/* Title & Description */}

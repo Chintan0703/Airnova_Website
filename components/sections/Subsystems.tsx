@@ -44,7 +44,7 @@ export default function Subsystems() {
       className="relative py-24 sm:py-32 px-4 sm:px-6 lg:px-8 border-t border-brand-slate/40 overflow-hidden bg-brand-navy"
     >
       {/* Background Watermark */}
-      <Watermark text="ENGINEERING WINGS • 8 SUBSYSTEMS" opacity={0.04} angle={-3} />
+      <Watermark text={`ENGINEERING WINGS • ${subsystems.length} SUBSYSTEMS`} opacity={0.04} angle={-3} />
 
       <div className="relative max-w-7xl mx-auto z-10">
         {/* Section Header */}
@@ -58,13 +58,13 @@ export default function Subsystems() {
 
           <ScrollReveal delay={0.2} direction="up">
             <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl font-extrabold text-brand-light tracking-tight">
-              8 Functional <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-orange to-amber-400">Subsystems</span>
+              {subsystems.length} Functional <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-orange to-amber-400">Subsystems</span>
             </h2>
           </ScrollReveal>
 
           <ScrollReveal delay={0.3} direction="up">
             <p className="text-brand-muted mt-4 text-base sm:text-lg leading-relaxed font-sans">
-              From advanced composite airframe fabrication to autonomous autopilot loops and corporate sponsorship, our squadron operates through 8 synchronized divisions.
+              From advanced composite airframe fabrication to autonomous autopilot loops and corporate sponsorship, our squadron operates through {subsystems.length} synchronized divisions.
             </p>
           </ScrollReveal>
         </div>

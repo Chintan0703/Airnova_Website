@@ -29,6 +29,8 @@ export default function Timeline() {
   });
 
   const milestones: Milestone[] = timelineData;
+  const startYear = milestones[0]?.year || "2019";
+  const endYear = milestones[milestones.length - 1]?.year || "2025";
 
   return (
     <section
@@ -37,7 +39,7 @@ export default function Timeline() {
       className="relative py-24 sm:py-32 px-4 sm:px-6 lg:px-8 border-t border-brand-slate/40 overflow-hidden bg-brand-navy"
     >
       {/* Background Watermark */}
-      <Watermark text="FLIGHT LOG • 2019 - 2025" opacity={0.04} angle={-2} />
+      <Watermark text={`FLIGHT LOG • ${startYear} - ${endYear}`} opacity={0.04} angle={-2} />
 
       <div className="relative max-w-6xl mx-auto z-10">
         {/* Section Header */}
@@ -51,7 +53,7 @@ export default function Timeline() {
 
           <ScrollReveal delay={0.2} direction="up">
             <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl font-extrabold text-brand-light tracking-tight">
-              Our Journey <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-orange to-amber-400">(2019 – 2025)</span>
+              Our Journey <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-orange to-amber-400">({startYear} – {endYear})</span>
             </h2>
           </ScrollReveal>
 
@@ -86,69 +88,24 @@ export default function Timeline() {
               return (
                 <div
                   key={milestone.year}
-                  className="relative flex flex-col md:flex-row items-start md:items-center"
+                  className={`relative flex flex-col md:flex-row items-start md:items-center ${
+                    isEven ? "md:flex-row" : "md:flex-row-reverse"
+                  }`}
                 >
                   {/* Central Node Marker with Glowing Ring */}
-                  <div className="absolute left-4 md:left-1/2 -translate-x-1/2 z-20 flex items-center justify-center">
+                  <div className="absolute left-4 md:left-1/2 -translate-x-1/2 z-20 flex items-center justify-center top-6 md:top-auto">
                     <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-brand-navy border-2 border-brand-orange ring-4 ring-brand-navy shadow-orange-glow flex items-center justify-center text-brand-orange">
                       <IconComponent className="w-4 h-4 sm:w-5 sm:h-5" />
                     </div>
                   </div>
 
-                  {/* Left Column (Desktop) */}
+                  {/* Milestone Content Card */}
                   <div
-                    className={`w-full md:w-1/2 pl-12 md:pl-0 ${
-                      isEven ? "md:pr-12 md:text-right" : "md:hidden"
+                    className={`w-full md:w-1/2 pl-12 ${
+                      isEven ? "md:pl-0 md:pr-12" : "md:pl-12 md:pr-0"
                     }`}
                   >
-                    {isEven && (
-                      <ScrollReveal delay={0.1} direction="left">
-                        <div
-                          className={`glass-panel glass-panel-hover rounded-2xl p-6 sm:p-8 border ${
-                            milestone.highlight
-                              ? "border-brand-orange/50 shadow-orange-glow"
-                              : "border-brand-slate/90"
-                          } relative overflow-hidden group`}
-                        >
-                          <div className="flex items-center gap-2 mb-2 md:justify-end">
-                            <span className="text-2xl sm:text-3xl font-display font-black text-brand-orange">
-                              {milestone.year}
-                            </span>
-                            {milestone.highlight && (
-                              <span className="text-[10px] font-mono uppercase tracking-wider text-brand-orange px-2 py-0.5 rounded bg-brand-orange/10 border border-brand-orange/30">
-                                KEY EPOCH
-                              </span>
-                            )}
-                          </div>
-
-                          <h3 className="font-heading text-xl sm:text-2xl font-bold text-brand-light mb-3">
-                            {milestone.title}
-                          </h3>
-
-                          <p className="text-xs sm:text-sm text-brand-muted leading-relaxed mb-5">
-                            {milestone.summary}
-                          </p>
-
-                          <ul className="space-y-2 text-xs sm:text-sm text-brand-light/85 text-left">
-                            {milestone.details.map((detail, dIdx) => (
-                              <li key={dIdx} className="flex items-start gap-2.5">
-                                <CheckCircle2 className="w-4 h-4 text-brand-orange shrink-0 mt-0.5" />
-                                <span>{detail}</span>
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-                      </ScrollReveal>
-                    )}
-                  </div>
-
-                  {/* Right Column (Desktop & Mobile view for all nodes) */}
-                  <div
-                    className={`w-full md:w-1/2 pl-12 md:pl-12 ${
-                      !isEven ? "" : "md:hidden"
-                    }`}
-                  >
-                    <ScrollReveal delay={0.1} direction={isEven ? "up" : "right"}>
+                    <ScrollReveal delay={0.1} direction={isEven ? "left" : "right"}>
                       <div
                         className={`glass-panel glass-panel-hover rounded-2xl p-6 sm:p-8 border ${
                           milestone.highlight
@@ -156,7 +113,11 @@ export default function Timeline() {
                             : "border-brand-slate/90"
                         } relative overflow-hidden group`}
                       >
-                        <div className="flex items-center gap-2 mb-2">
+                        <div
+                          className={`flex items-center gap-2 mb-2 ${
+                            isEven ? "md:justify-end" : "justify-start"
+                          }`}
+                        >
                           <span className="text-2xl sm:text-3xl font-display font-black text-brand-orange">
                             {milestone.year}
                           </span>
@@ -167,17 +128,30 @@ export default function Timeline() {
                           )}
                         </div>
 
-                        <h3 className="font-heading text-xl sm:text-2xl font-bold text-brand-light mb-3">
+                        <h3
+                          className={`font-heading text-xl sm:text-2xl font-bold text-brand-light mb-3 ${
+                            isEven ? "md:text-right" : "text-left"
+                          }`}
+                        >
                           {milestone.title}
                         </h3>
 
-                        <p className="text-xs sm:text-sm text-brand-muted leading-relaxed mb-5">
+                        <p
+                          className={`text-xs sm:text-sm text-brand-muted leading-relaxed mb-5 ${
+                            isEven ? "md:text-right" : "text-left"
+                          }`}
+                        >
                           {milestone.summary}
                         </p>
 
-                        <ul className="space-y-2 text-xs sm:text-sm text-brand-light/85">
+                        <ul className="space-y-2 text-xs sm:text-sm text-brand-light/85 text-left">
                           {milestone.details.map((detail, dIdx) => (
-                            <li key={dIdx} className="flex items-start gap-2.5">
+                            <li
+                              key={dIdx}
+                              className={`flex items-start gap-2.5 ${
+                                isEven ? "md:flex-row-reverse md:text-right" : ""
+                              }`}
+                            >
                               <CheckCircle2 className="w-4 h-4 text-brand-orange shrink-0 mt-0.5" />
                               <span>{detail}</span>
                             </li>
@@ -186,6 +160,9 @@ export default function Timeline() {
                       </div>
                     </ScrollReveal>
                   </div>
+
+                  {/* Desktop Balancing Spacer for Opposite Side */}
+                  <div className="hidden md:block md:w-1/2" aria-hidden="true" />
                 </div>
               );
             })}

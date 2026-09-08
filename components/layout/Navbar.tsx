@@ -11,6 +11,7 @@ export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeAnchor, setActiveAnchor] = useState<string>("#home");
+  const [logoError, setLogoError] = useState(false);
   const pathname = usePathname();
 
   useEffect(() => {
@@ -36,7 +37,6 @@ export default function Navbar() {
       "projects",
       "achievements",
       "sponsors",
-      "contact",
     ];
 
     const observer = new IntersectionObserver(
@@ -99,8 +99,17 @@ export default function Navbar() {
             className="flex items-center gap-3 group focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange rounded-md p-1"
             onClick={() => setActiveAnchor("#home")}
           >
-            <div className="w-10 h-10 rounded-lg bg-brand-slate border border-brand-orange/40 flex items-center justify-center text-brand-orange group-hover:border-brand-orange group-hover:shadow-orange-glow transition-all duration-300">
-              <Rocket className="w-5 h-5 group-hover:rotate-12 transition-transform duration-300" />
+            <div className="w-10 h-10 rounded-lg bg-brand-slate border border-brand-orange/40 flex items-center justify-center text-brand-orange group-hover:border-brand-orange group-hover:shadow-orange-glow transition-all duration-300 overflow-hidden">
+              {siteData.logoImage && !logoError ? (
+                <img
+                  src={siteData.logoImage}
+                  alt={siteData.name}
+                  onError={() => setLogoError(true)}
+                  className="w-full h-full object-contain p-1"
+                />
+              ) : (
+                <Rocket className="w-5 h-5 group-hover:rotate-12 transition-transform duration-300" />
+              )}
             </div>
             <div className="flex flex-col">
               <span className="font-display font-extrabold tracking-wider text-xl text-brand-light group-hover:text-brand-orange transition-colors">

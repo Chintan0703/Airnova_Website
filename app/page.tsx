@@ -7,7 +7,6 @@ import Timeline from "@/components/sections/Timeline";
 import Projects from "@/components/sections/Projects";
 import Achievements from "@/components/sections/Achievements";
 import Sponsorship from "@/components/sections/Sponsorship";
-import Contact from "@/components/sections/Contact";
 import Footer from "@/components/layout/Footer";
 
 export default function HomePage() {
@@ -41,9 +40,6 @@ export default function HomePage() {
 
         {/* Corporate Sponsorship & Alliances (Developer B) */}
         <Sponsorship />
-
-        {/* Interactive Communications & Inquiry Desk (Developer B + Developer C) */}
-        <Contact />
       </main>
 
       {/* 3. Rich Aerospace Footer (Developer B) */}

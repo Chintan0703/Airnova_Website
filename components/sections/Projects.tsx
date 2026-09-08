@@ -31,33 +31,35 @@ const categoryBadgeStyles: Record<string, string> = {
   pink: "border-pink-400/40 text-pink-300 bg-pink-500/10",
 };
 
-const filterTabs = [
-  { id: "all", label: "All Vehicles (7)" },
-  { id: "fixed-wing", label: "Fixed-Wing & VTOL" },
-  { id: "propulsion", label: "Propulsion & Rocketry" },
-  { id: "biomimetic", label: "Biomimetic Flight" },
-  { id: "controls", label: "Autonomous & HCI" },
-];
-
 export default function Projects() {
   const [activeTab, setActiveTab] = useState<string>("all");
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
   const projects: Project[] = projectsData as unknown as Project[];
 
+  const filterTabs = [
+    { id: "all", label: `All Vehicles (${projects.length})` },
+    { id: "fixed-wing", label: "Fixed-Wing & VTOL" },
+    { id: "propulsion", label: "Propulsion & Rocketry" },
+    { id: "biomimetic", label: "Biomimetic Flight" },
+    { id: "controls", label: "Autonomous & HCI" },
+  ];
+
   const filteredProjects = projects.filter((project) => {
     if (activeTab === "all") return true;
+    const cat = (project.category || "").toLowerCase();
+    const id = (project.id || "").toLowerCase();
     if (activeTab === "fixed-wing") {
-      return project.id === "gliders" || project.id === "vtol" || project.id === "rc-planes";
+      return id === "gliders" || id === "vtol" || id === "rc-planes" || cat.includes("fixed") || cat.includes("vtol") || cat.includes("aerodynamics");
     }
     if (activeTab === "propulsion") {
-      return project.id === "rocketry";
+      return id === "rocketry" || cat.includes("propulsion") || cat.includes("rocket");
     }
     if (activeTab === "biomimetic") {
-      return project.id === "ornithopter" || project.id === "bionic-butterfly";
+      return id === "ornithopter" || id === "bionic-butterfly" || cat.includes("bio") || cat.includes("flapper");
     }
     if (activeTab === "controls") {
-      return project.id === "gesture-drone";
+      return id === "gesture-drone" || cat.includes("control") || cat.includes("autonomous") || cat.includes("hci") || cat.includes("drone");
     }
     return true;
   });
@@ -68,7 +70,7 @@ export default function Projects() {
       className="relative py-24 sm:py-32 px-4 sm:px-6 lg:px-8 border-t border-brand-slate/40 overflow-hidden bg-brand-navy"
     >
       {/* Background Watermark */}
-      <Watermark text="FLAGSHIP ENGINEERING • 7 BUILDS" opacity={0.04} angle={3} />
+      <Watermark text={`FLAGSHIP ENGINEERING • ${projects.length} BUILDS`} opacity={0.04} angle={3} />
 
       <div className="relative max-w-7xl mx-auto z-10">
         {/* Section Header */}
@@ -76,13 +78,13 @@ export default function Projects() {
           <ScrollReveal delay={0.1} direction="down">
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-brand-slate/80 border border-brand-orange/30 text-brand-orange text-xs font-mono uppercase tracking-widest mb-4">
               <Rocket className="w-3.5 h-3.5" />
-              <span>2025 Engineering Fleet</span>
+              <span>Engineering Fleet</span>
             </div>
           </ScrollReveal>
 
           <ScrollReveal delay={0.2} direction="up">
             <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl font-extrabold text-brand-light tracking-tight">
-              7 Flagship <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-orange to-amber-400">Vehicles</span>
+              {projects.length} Flagship <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-orange to-amber-400">Vehicles</span>
             </h2>
           </ScrollReveal>
 
@@ -169,7 +171,17 @@ export default function Projects() {
                       )}
                     </div>
 
-                    {/* Vehicle Title */}
+                    {/* Vehicle Title & Optional Image Banner */}
+                    {project.imagePlaceholder && !project.imagePlaceholder.includes("/images/projects/") && (
+                      <div className="w-full h-40 rounded-xl bg-brand-navy border border-brand-slate overflow-hidden mb-4">
+                        <img
+                          src={project.imagePlaceholder}
+                          alt={project.name}
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        />
+                      </div>
+                    )}
+
                     <h3 className="font-heading font-bold text-2xl text-brand-light mb-2.5 group-hover:text-brand-orange transition-colors">
                       {project.name}
                     </h3>
@@ -257,6 +269,16 @@ export default function Projects() {
                 {selectedProject.name}
               </h3>
             </div>
+
+            {selectedProject.imagePlaceholder && !selectedProject.imagePlaceholder.includes("/images/projects/") && (
+              <div className="w-full h-48 sm:h-56 rounded-xl bg-brand-navy border border-brand-slate overflow-hidden mb-6">
+                <img
+                  src={selectedProject.imagePlaceholder}
+                  alt={selectedProject.name}
+                  className="w-full h-full object-cover"
+                />
+              </div>
+            )}
 
             <p className="text-sm text-brand-muted leading-relaxed mb-6 font-sans">
               {selectedProject.description}

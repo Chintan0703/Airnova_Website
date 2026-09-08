@@ -1,62 +1,53 @@
 {
   "headline": "Empowering Future Aerospace Pioneers",
-  "subtitle": "Partner with Airnova to support cutting-edge collegiate UAV research, access elite engineering talent, and amplify your brand across global aerospace competitions.",
+  "subtitle": "Collaborating with leading aerospace enterprises and hardware partners to accelerate autonomous flight research, biomimetic airframe development, and collegiate aeronautical engineering.",
   "valueProposition": [
-    "Direct recruitment pipeline to high-caliber aeronautical, embedded, and robotics engineers.",
-    "Prominent brand exposure on flight airframes, competition jerseys, and symposium banners.",
-    "Collaborative R&D testing opportunities with our multidisciplinary testing benches."
+    "Direct recruitment pipeline to high-caliber aeronautical, embedded systems, and robotics engineers.",
+    "Prominent brand exposure on flight airframes, competition jerseys, symposiums, and national UAV challenges.",
+    "Collaborative R&D testing opportunities with our multidisciplinary aerodynamic test benches."
   ],
-  "tiers": [
+  "companies": [
     {
-      "tierName": "Title Partner",
-      "badgeColor": "orange",
-      "description": "Exclusive headline sponsorship with primary airframe fuselage branding and symposium keynote credits.",
-      "sponsors": [
-        {
-          "name": "Aerospace Dynamics Corp",
-          "logoPlaceholder": "/images/sponsors/sponsor-title.svg",
-          "websiteUrl": "https://example.com"
-        }
-      ]
+      "id": "comp_1",
+      "name": "Aerospace Dynamics Corp",
+      "description": "Pioneering aerospace structures, supersonic wind-tunnel instrumentation, and advanced aerodynamics testing rigs.",
+      "logoPlaceholder": "",
+      "websiteUrl": "https://example.com"
     },
     {
-      "tierName": "Platinum Tier",
-      "badgeColor": "ion",
-      "description": "Wing surface logo placement, recruitment presentation sessions, and dedicated workshop collaborations.",
-      "sponsors": [
-        {
-          "name": "Avionics Cloud Telemetry",
-          "logoPlaceholder": "/images/sponsors/sponsor-plat1.svg",
-          "websiteUrl": "https://example.com"
-        },
-        {
-          "name": "CarbonTech Composites",
-          "logoPlaceholder": "/images/sponsors/sponsor-plat2.svg",
-          "websiteUrl": "https://example.com"
-        }
-      ]
+      "id": "comp_2",
+      "name": "Avionics Cloud Telemetry",
+      "description": "Real-time telemetry networks, high-bandwidth RF links, and mission ground station control software.",
+      "logoPlaceholder": "",
+      "websiteUrl": "https://example.com"
     },
     {
-      "tierName": "Gold & Hardware Partners",
-      "badgeColor": "muted",
-      "description": "Component sponsorships, LiPo battery grants, and technical tooling contributions.",
-      "sponsors": [
-        {
-          "name": "Quantum ESC Systems",
-          "logoPlaceholder": "/images/sponsors/sponsor-gold1.svg",
-          "websiteUrl": "https://example.com"
-        },
-        {
-          "name": "Precision CNC Machining",
-          "logoPlaceholder": "/images/sponsors/sponsor-gold2.svg",
-          "websiteUrl": "https://example.com"
-        },
-        {
-          "name": "AeroPropellers Labs",
-          "logoPlaceholder": "/images/sponsors/sponsor-gold3.svg",
-          "websiteUrl": "https://example.com"
-        }
-      ]
+      "id": "comp_3",
+      "name": "CarbonTech Composites",
+      "description": "Ultra-high-modulus carbon fiber fabrics, epoxy infusion resins, and vacuum bagging supplies for lightweight UAV airframes.",
+      "logoPlaceholder": "",
+      "websiteUrl": "https://example.com"
+    },
+    {
+      "id": "comp_4",
+      "name": "Quantum ESC Systems",
+      "description": "High-voltage Electronic Speed Controllers, brushless motor drivers, and intelligent power distribution units.",
+      "logoPlaceholder": "",
+      "websiteUrl": "https://example.com"
+    },
+    {
+      "id": "comp_5",
+      "name": "Precision CNC Machining",
+      "description": "5-axis aerospace-grade aluminum milling, titanium component turning, and custom motor mount fabrication.",
+      "logoPlaceholder": "",
+      "websiteUrl": "https://example.com"
+    },
+    {
+      "id": "comp_6",
+      "name": "AeroPropellers Labs",
+      "description": "Computational fluid dynamics optimized carbon propeller blades and low-noise propulsion testing equipment.",
+      "logoPlaceholder": "",
+      "websiteUrl": "https://example.com"
     }
   ]
 }

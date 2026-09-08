@@ -156,6 +156,18 @@ export default function Achievements() {
                   className="absolute top-0 right-0 w-32 h-32 bg-brand-orange/10 rounded-full blur-2xl group-hover:bg-brand-orange/20 transition-all pointer-events-none"
                 />
 
+                {/* Optional Image Banner if Uploaded */}
+                {record.imagePlaceholder && (record.imagePlaceholder.startsWith("/uploads/") || record.imagePlaceholder.startsWith("http")) && (
+                  <div className="w-full h-36 rounded-xl overflow-hidden mb-4 border border-brand-slate/80 relative">
+                    <img
+                      src={record.imagePlaceholder}
+                      alt={record.title}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-brand-navy/80 via-transparent to-transparent" />
+                  </div>
+                )}
+
                 <div>
                   <div className="flex items-center justify-between gap-2 mb-4">
                     <span className="text-[11px] font-mono px-3 py-1 rounded-full bg-brand-orange/10 border border-brand-orange/30 text-brand-orange uppercase font-semibold">

@@ -1,41 +1,87 @@
 "use client";
 
-import React from "react";
-import Link from "next/link";
+import React, { useState } from "react";
 import { 
   Handshake, 
-  CheckCircle2, 
-  ArrowRight, 
+  ArrowUpRight, 
   Sparkles, 
-  ShieldCheck, 
   Briefcase, 
   Layers,
-  Award
+  Building2
 } from "lucide-react";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 import Watermark from "@/components/ui/Watermark";
 import sponsorsData from "@/content/sponsors.json";
+import { SponsorCompany } from "@/lib/types";
 
-const tierColorStyles: Record<string, { badge: string; border: string; glow: string }> = {
-  orange: {
-    badge: "bg-brand-orange/15 text-brand-orange border-brand-orange/40",
-    border: "border-brand-orange/50",
-    glow: "shadow-orange-glow",
-  },
-  ion: {
-    badge: "bg-brand-ion/15 text-brand-ion border-brand-ion/40",
-    border: "border-brand-ion/50",
-    glow: "shadow-ion-glow",
-  },
-  muted: {
-    badge: "bg-brand-slate text-brand-light border-brand-border",
-    border: "border-brand-slate/90",
-    glow: "",
-  },
-};
+function CompanyCard({ company }: { company: SponsorCompany }) {
+  const [imgError, setImgError] = useState(false);
+
+  const hasValidLogo =
+    company.logoPlaceholder &&
+    !imgError &&
+    (company.logoPlaceholder.startsWith("/uploads/") ||
+      company.logoPlaceholder.startsWith("http") ||
+      company.logoPlaceholder.startsWith("data:"));
+
+  return (
+    <div className="glass-panel glass-panel-hover rounded-2xl p-6 sm:p-7 border border-brand-slate/90 flex flex-col justify-between h-full group hover:border-brand-orange/40 hover:shadow-orange-glow transition-all duration-300">
+      <div>
+        {/* Company Header: Logo / Avatar & Link */}
+        <div className="flex items-center justify-between gap-3 mb-5">
+          {hasValidLogo ? (
+            <div className="w-14 h-10 rounded-lg bg-brand-navy border border-brand-slate p-1.5 flex items-center justify-center overflow-hidden">
+              <img
+                src={company.logoPlaceholder}
+                alt={company.name}
+                onError={() => setImgError(true)}
+                className="max-h-full max-w-full object-contain"
+              />
+            </div>
+          ) : (
+            <div className="w-10 h-10 rounded-xl bg-brand-slate/80 border border-brand-orange/40 text-brand-orange flex items-center justify-center">
+              <Building2 className="w-5 h-5" />
+            </div>
+          )}
+
+          {company.websiteUrl && company.websiteUrl !== "https://example.com" && (
+            <a
+              href={company.websiteUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-1.5 rounded-lg bg-brand-slate/60 text-brand-muted hover:text-brand-orange hover:bg-brand-slate border border-brand-slate transition-colors"
+              aria-label={`Visit ${company.name} website`}
+            >
+              <ArrowUpRight className="w-4 h-4" />
+            </a>
+          )}
+        </div>
+
+        {/* Company Title */}
+        <h4 className="font-heading font-bold text-lg sm:text-xl text-brand-light mb-2.5 group-hover:text-brand-orange transition-colors">
+          {company.name}
+        </h4>
+
+        {/* Short Description */}
+        <p className="text-xs sm:text-sm text-brand-muted leading-relaxed font-sans">
+          {company.description}
+        </p>
+      </div>
+
+      <div className="mt-6 pt-4 border-t border-brand-slate/60 flex items-center justify-between text-[11px] font-mono">
+        <span className="text-brand-muted">INDUSTRY PARTNER</span>
+        <span className="text-brand-orange font-semibold flex items-center gap-1.5">
+          <span className="w-1.5 h-1.5 rounded-full bg-brand-orange animate-pulse" />
+          <span>COLLABORATING</span>
+        </span>
+      </div>
+    </div>
+  );
+}
 
 export default function Sponsorship() {
   const valueIcons = [Briefcase, Sparkles, Layers];
+  const companies: SponsorCompany[] = (sponsorsData as any).companies || [];
 
   return (
     <section
@@ -92,96 +138,25 @@ export default function Sponsorship() {
           })}
         </div>
 
-        {/* 2. Sponsorship Tiers Matrix */}
-        <div className="space-y-8 mb-16">
+        {/* 2. Partner Companies Grid */}
+        <div className="space-y-8">
           <div className="text-center max-w-2xl mx-auto mb-8">
             <h3 className="font-heading text-2xl sm:text-3xl font-bold text-brand-light">
-              Partnership Tiers & Opportunities
+              Our Industry & Hardware Partners
             </h3>
             <p className="text-xs sm:text-sm text-brand-muted mt-1 font-mono">
-              TAILORED TIERS FOR INDUSTRY CORPORATIONS, LABS, AND HARDWARE PROVIDERS
+              COLLABORATING WITH LEADING AEROSPACE AND HARDWARE ORGANIZATIONS
             </p>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            {sponsorsData.tiers.map((tier, index) => {
-              const styles = tierColorStyles[tier.badgeColor] || tierColorStyles.muted;
-              return (
-                <ScrollReveal key={tier.tierName} delay={0.1 * index} direction="up" className="h-full">
-                  <div
-                    className={`glass-panel rounded-2xl p-8 h-full flex flex-col justify-between border ${styles.border} ${styles.glow} relative overflow-hidden group`}
-                  >
-                    <div>
-                      <div className="flex items-center justify-between mb-4">
-                        <span
-                          className={`text-xs font-mono uppercase px-3 py-1 rounded-full border ${styles.badge}`}
-                        >
-                          {tier.tierName}
-                        </span>
-                        <ShieldCheck className="w-5 h-5 text-brand-muted group-hover:text-brand-orange transition-colors" />
-                      </div>
-
-                      <h4 className="font-heading font-bold text-xl sm:text-2xl text-brand-light mb-3">
-                        {tier.tierName}
-                      </h4>
-
-                      <p className="text-xs sm:text-sm text-brand-muted leading-relaxed mb-6 font-sans">
-                        {tier.description}
-                      </p>
-
-                      {/* Sponsor Slots / Placeholders */}
-                      <div className="space-y-2.5 mb-6">
-                        <span className="text-[10px] font-mono text-brand-muted uppercase tracking-wider block">
-                          Current & Reserved Slots:
-                        </span>
-                        {tier.sponsors.map((sp, sIdx) => (
-                          <div
-                            key={sIdx}
-                            className="flex items-center justify-between p-3 rounded-lg bg-brand-navy/80 border border-brand-slate/80 text-xs font-mono text-brand-light"
-                          >
-                            <span className="font-semibold">{sp.name}</span>
-                            <span className="text-[10px] text-brand-orange">CONFIRMED</span>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-
-                    <div className="pt-4 border-t border-brand-slate/70">
-                      <Link
-                        href="#contact"
-                        className="w-full inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-lg text-xs font-mono font-semibold text-brand-light bg-brand-slate hover:bg-brand-orange hover:text-white border border-brand-border transition-all duration-200"
-                      >
-                        <span>Partner with this Tier</span>
-                        <ArrowRight className="w-3.5 h-3.5" />
-                      </Link>
-                    </div>
-                  </div>
-                </ScrollReveal>
-              );
-            })}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+            {companies.map((company, index) => (
+              <ScrollReveal key={company.id || index} delay={0.1 * index} direction="up" className="h-full">
+                <CompanyCard company={company} />
+              </ScrollReveal>
+            ))}
           </div>
         </div>
-
-        {/* Bottom CTA Banner */}
-        <ScrollReveal delay={0.2} direction="up">
-          <div className="glass-panel rounded-2xl p-6 sm:p-8 text-center max-w-3xl mx-auto border border-brand-orange/30 flex flex-col sm:flex-row items-center justify-between gap-6">
-            <div className="text-center sm:text-left">
-              <h4 className="font-heading font-bold text-lg text-brand-light">
-                Request Our 2025 Sponsorship Brochure
-              </h4>
-              <p className="text-xs text-brand-muted mt-1 font-sans">
-                Detailed EDR deliverables, hardware requirements, and airframe branding layouts.
-              </p>
-            </div>
-            <Link
-              href="#contact"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-md bg-brand-orange hover:bg-brand-orange-hover text-white text-sm font-semibold shadow-lg shadow-brand-orange/30 shrink-0 transition-all"
-            >
-              <span>Request Deck</span>
-              <ArrowRight className="w-4 h-4" />
-            </Link>
-          </div>
-        </ScrollReveal>
       </div>
     </section>
   );

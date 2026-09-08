@@ -21,6 +21,7 @@ import subsystemsData from "@/content/subsystems.json";
 
 export default function Leadership() {
   const [showSubsystemLeads, setShowSubsystemLeads] = useState(false);
+  const [imgError, setImgError] = useState(false);
 
   return (
     <section
@@ -65,8 +66,22 @@ export default function Leadership() {
             <div className="flex flex-col md:flex-row items-center md:items-start gap-8 sm:gap-10 relative z-10">
               {/* Captain Avatar with Aerospace 2px Orange Ring */}
               <div className="relative shrink-0">
-                <div className="w-32 h-32 sm:w-36 sm:h-36 rounded-2xl bg-brand-slate border-2 border-brand-orange/80 ring-4 ring-brand-navy shadow-2xl flex items-center justify-center text-brand-orange font-display font-black text-4xl group-hover:scale-105 group-hover:shadow-orange-glow transition-all duration-300">
-                  <span>AS</span>
+                <div className="w-32 h-32 sm:w-36 sm:h-36 rounded-2xl bg-brand-slate border-2 border-brand-orange/80 ring-4 ring-brand-navy shadow-2xl flex items-center justify-center text-brand-orange font-display font-black text-4xl group-hover:scale-105 group-hover:shadow-orange-glow transition-all duration-300 overflow-hidden">
+                  {captainData.avatarPlaceholder && !imgError && (captainData.avatarPlaceholder.startsWith("/uploads/") || captainData.avatarPlaceholder.startsWith("http")) ? (
+                    <img
+                      src={captainData.avatarPlaceholder}
+                      alt={captainData.name}
+                      onError={() => setImgError(true)}
+                      className="w-full h-full object-cover"
+                    />
+                  ) : (
+                    <span>
+                      {captainData.name
+                        .split(" ")
+                        .map((n) => n[0])
+                        .join("")}
+                    </span>
+                  )}
                 </div>
                 {/* Flight Status Pill */}
                 <div className="absolute -bottom-2.5 left-1/2 -translate-x-1/2 px-3 py-0.5 rounded-full bg-brand-navy border border-brand-orange text-[10px] font-mono text-brand-orange whitespace-nowrap shadow-md">

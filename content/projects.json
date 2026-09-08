@@ -12,7 +12,12 @@
       "Airfoil": "Selig S3021 Modified",
       "Material": "Carbon Fiber / Balsa Hybrid"
     },
-    "tags": ["Aerodynamics", "Low Drag", "CFD", "Carbon Spar"],
+    "tags": [
+      "Aerodynamics",
+      "Low Drag",
+      "CFD",
+      "Carbon Spar"
+    ],
     "imagePlaceholder": "/images/projects/glider.jpg",
     "featured": true
   },
@@ -29,7 +34,12 @@
       "Cruise Endurance": "45 min",
       "Autopilot": "ArduPlane Dual-Core"
     },
-    "tags": ["Tilt-Rotor", "Hybrid Transition", "Autopilot", "Long Range"],
+    "tags": [
+      "Tilt-Rotor",
+      "Hybrid Transition",
+      "Autopilot",
+      "Long Range"
+    ],
     "imagePlaceholder": "/images/projects/vtol.jpg",
     "featured": true
   },
@@ -46,7 +56,12 @@
       "Motor": "Sunnysky 2814 1100KV",
       "Battery": "4S 2200mAh 70C"
     },
-    "tags": ["3D Aerobatics", "High Agility", "Payload Drop", "Telemetric ESC"],
+    "tags": [
+      "3D Aerobatics",
+      "High Agility",
+      "Payload Drop",
+      "Telemetric ESC"
+    ],
     "imagePlaceholder": "/images/projects/rc-plane.jpg",
     "featured": false
   },
@@ -63,7 +78,12 @@
       "Length": "1150 mm",
       "Diameter": "54 mm"
     },
-    "tags": ["Solid Propulsion", "Dual Parachute", "Barometric Telemetry", "High G"],
+    "tags": [
+      "Solid Propulsion",
+      "Dual Parachute",
+      "Barometric Telemetry",
+      "High G"
+    ],
     "imagePlaceholder": "/images/projects/rocketry.jpg",
     "featured": true
   },
@@ -80,7 +100,12 @@
       "Flight Time": "14 min",
       "Vision Processing": "ESP32-S3 + Optical Flow"
     },
-    "tags": ["HCI Glove", "Wearable Telemetry", "Low Latency", "Autonomous Hover"],
+    "tags": [
+      "HCI Glove",
+      "Wearable Telemetry",
+      "Low Latency",
+      "Autonomous Hover"
+    ],
     "imagePlaceholder": "/images/projects/gesture-drone.jpg",
     "featured": false
   },
@@ -97,7 +122,12 @@
       "Weight": "210 g",
       "Structure": "Carbon Rods / Mylar Membrane"
     },
-    "tags": ["Biomimicry", "Flapping Wing", "Aeroelasticity", "Ultra Quiet"],
+    "tags": [
+      "Biomimicry",
+      "Flapping Wing",
+      "Aeroelasticity",
+      "Ultra Quiet"
+    ],
     "imagePlaceholder": "/images/projects/ornithopter.jpg",
     "featured": true
   },
@@ -114,7 +144,12 @@
       "Flight Duration": "8 min",
       "Communication": "2.4GHz Micro Receiver"
     },
-    "tags": ["Micro Aerial Vehicle", "Sub-20g MAV", "Insect Kinematics", "Micro Gearbox"],
+    "tags": [
+      "Micro Aerial Vehicle",
+      "Sub-20g MAV",
+      "Insect Kinematics",
+      "Micro Gearbox"
+    ],
     "imagePlaceholder": "/images/projects/bionic-butterfly.jpg",
     "featured": false
   }

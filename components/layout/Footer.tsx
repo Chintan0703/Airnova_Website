@@ -13,13 +13,16 @@ import {
   Twitter, 
   Youtube, 
   Github,
-  Compass,
-  ExternalLink
+  MessageSquare,
+  Compass, 
+  ExternalLink 
 } from "lucide-react";
 import siteData from "@/content/site.json";
 import subsystemsData from "@/content/subsystems.json";
 
 export default function Footer() {
+  const [logoError, setLogoError] = React.useState(false);
+
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
@@ -28,12 +31,13 @@ export default function Footer() {
   };
 
   const socialLinks = [
-    { icon: Instagram, label: "Instagram", href: siteData.socials.instagram },
-    { icon: Linkedin, label: "LinkedIn", href: siteData.socials.linkedin },
-    { icon: Twitter, label: "Twitter / X", href: siteData.socials.twitter },
-    { icon: Youtube, label: "YouTube", href: siteData.socials.youtube },
-    { icon: Github, label: "GitHub", href: siteData.socials.github || "#" },
-  ];
+    { icon: Instagram, label: "Instagram", href: siteData.socials?.instagram },
+    { icon: Linkedin, label: "LinkedIn", href: siteData.socials?.linkedin },
+    { icon: Twitter, label: "Twitter / X", href: siteData.socials?.twitter },
+    { icon: Youtube, label: "YouTube", href: siteData.socials?.youtube },
+    { icon: Github, label: "GitHub", href: siteData.socials?.github },
+    { icon: MessageSquare, label: "Discord", href: (siteData.socials as any)?.discord },
+  ].filter((s) => s.href && s.href.trim() !== "" && s.href !== "#");
 
   return (
     <footer className="bg-brand-navy border-t border-brand-slate relative overflow-hidden text-brand-muted z-10">
@@ -48,8 +52,17 @@ export default function Footer() {
               href="#home"
               className="flex items-center gap-3 group focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange rounded-md inline-flex"
             >
-              <div className="w-10 h-10 rounded-lg bg-brand-slate border border-brand-orange/40 flex items-center justify-center text-brand-orange group-hover:border-brand-orange group-hover:shadow-orange-glow transition-all">
-                <Rocket className="w-5 h-5 group-hover:rotate-12 transition-transform" />
+              <div className="w-10 h-10 rounded-lg bg-brand-slate border border-brand-orange/40 flex items-center justify-center text-brand-orange group-hover:border-brand-orange group-hover:shadow-orange-glow transition-all overflow-hidden">
+                {siteData.logoImage && !logoError ? (
+                  <img
+                    src={siteData.logoImage}
+                    alt={siteData.name}
+                    onError={() => setLogoError(true)}
+                    className="w-full h-full object-contain p-1"
+                  />
+                ) : (
+                  <Rocket className="w-5 h-5 group-hover:rotate-12 transition-transform" />
+                )}
               </div>
               <div className="flex flex-col">
                 <span className="font-display font-extrabold tracking-wider text-xl text-brand-light">
@@ -181,6 +194,13 @@ export default function Footer() {
             <span className="font-mono text-[11px] text-brand-muted hidden sm:inline">
               Motto: &ldquo;{siteData.tagline}&rdquo;
             </span>
+
+            <Link
+              href="/admin"
+              className="text-brand-muted hover:text-brand-orange text-[11px] font-mono transition-colors"
+            >
+              [Admin Flight Deck]
+            </Link>
 
             {/* Back to top button */}
             <button
