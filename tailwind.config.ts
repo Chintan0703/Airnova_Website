@@ -11,15 +11,15 @@ const config: Config = {
     extend: {
       colors: {
         brand: {
-          navy: "#0B1220",
-          slate: "#111A2E",
-          orange: "#FF7A1A",
-          "orange-hover": "#E0640D",
+          navy: "#000000",
+          slate: "#0A0A0A",
+          orange: "#F97316",
+          "orange-hover": "#EA580C",
           ion: "#00D2FF",
           muted: "#8FA3C4",
           light: "#F5F7FB",
-          border: "rgba(143, 163, 196, 0.2)",
-          "border-glow": "rgba(255, 122, 26, 0.4)",
+          border: "rgba(143, 163, 196, 0.12)",
+          "border-glow": "rgba(249, 115, 22, 0.4)",
         },
       },
       fontFamily: {
@@ -28,8 +28,8 @@ const config: Config = {
         sans: ["var(--font-inter)", "sans-serif"],
       },
       boxShadow: {
-        "orange-glow": "0 10px 25px -5px rgba(255, 122, 26, 0.25)",
-        "orange-glow-lg": "0 15px 35px -5px rgba(255, 122, 26, 0.4)",
+        "orange-glow": "0 10px 25px -5px rgba(249, 115, 22, 0.3)",
+        "orange-glow-lg": "0 15px 35px -5px rgba(249, 115, 22, 0.45)",
         "ion-glow": "0 10px 25px -5px rgba(0, 210, 255, 0.25)",
       },
       animation: {

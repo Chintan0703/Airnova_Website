@@ -13,24 +13,24 @@ interface WatermarkProps {
 
 export default function Watermark({
   text = siteData.watermark,
-  opacity = 0.05,
+  opacity = 0.04,
   className = "",
   angle = -5,
 }: WatermarkProps) {
-  // Ensure opacity stays within the safe WCAG 2.1 AA range of 4% to 8%
-  const safeOpacity = Math.min(Math.max(opacity, 0.03), 0.08);
+  // Ensure opacity stays within safe ambient texture range of 2% to 6%
+  const safeOpacity = Math.min(Math.max(opacity, 0.02), 0.06);
 
   return (
     <div
       aria-hidden="true"
-      className={`absolute inset-0 flex items-center justify-center select-none pointer-events-none overflow-hidden z-0 ${className}`}
+      className={`absolute inset-0 flex items-center justify-center select-none pointer-events-none overflow-hidden max-w-full z-0 ${className}`}
       style={{ opacity: safeOpacity }}
     >
       <div
-        className="w-full text-center transition-transform duration-700 ease-out"
+        className="w-full text-center transition-transform duration-700 ease-out select-none flex items-center justify-center"
         style={{ transform: `rotate(${angle}deg)` }}
       >
-        <span className="font-display text-4xl sm:text-6xl md:text-8xl lg:text-9xl font-black uppercase tracking-[0.2em] whitespace-nowrap text-brand-muted block">
+        <span className="font-display text-[clamp(2.5rem,7.5vw,8.5rem)] font-black uppercase tracking-[0.18em] whitespace-nowrap text-brand-muted/70 block select-none blur-[1px] md:blur-[1.5px] leading-none pointer-events-none">
           {text}
         </span>
       </div>
