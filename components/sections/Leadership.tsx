@@ -193,10 +193,10 @@ export default function Leadership() {
                     {sub.name}
                   </span>
                   <h4 className="font-heading font-bold text-sm text-brand-light group-hover:text-brand-orange transition-colors">
-                    {sub.leadRole}
+                    {sub.leadName || sub.leadRole}
                   </h4>
-                  <p className="text-[11px] text-brand-muted mt-1 leading-snug">
-                    Division Operational Lead
+                  <p className="text-[11px] text-brand-muted mt-0.5 leading-snug font-mono">
+                    {sub.leadRole}
                   </p>
                 </div>
               ))}

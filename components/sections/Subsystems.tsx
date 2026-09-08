@@ -131,7 +131,12 @@ export default function Subsystems() {
 
                   {/* Card Footer */}
                   <div className="pt-4 border-t border-brand-slate/60 flex items-center justify-between text-xs font-mono">
-                    <span className="text-brand-orange font-medium">{sub.leadRole}</span>
+                    <div className="flex flex-col">
+                      {sub.leadName && (
+                        <span className="text-brand-light font-semibold text-[11px]">{sub.leadName}</span>
+                      )}
+                      <span className="text-brand-orange text-[10px]">{sub.leadRole}</span>
+                    </div>
                     <ChevronRight className="w-4 h-4 text-brand-muted group-hover:text-brand-orange group-hover:translate-x-1 transition-all" />
                   </div>
                 </div>
@@ -197,8 +202,10 @@ export default function Subsystems() {
             </div>
 
             <div className="pt-4 border-t border-brand-slate flex items-center justify-between text-xs font-mono">
-              <span className="text-brand-muted">Division Lead:</span>
-              <span className="text-brand-orange font-bold">{selectedSubsystem.leadRole}</span>
+              <span className="text-brand-muted">Wing Leadership:</span>
+              <span className="text-brand-orange font-bold">
+                {selectedSubsystem.leadName ? `${selectedSubsystem.leadName} (${selectedSubsystem.leadRole})` : selectedSubsystem.leadRole}
+              </span>
             </div>
           </div>
         </div>

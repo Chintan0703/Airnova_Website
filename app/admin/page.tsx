@@ -200,6 +200,7 @@ export default function AdminDashboard() {
       icon: "Wing",
       description: "Enter engineering description of this wing...",
       focusAreas: ["Focus Area 1", "Focus Area 2"],
+      leadName: "Subsystem Head Name",
       leadRole: "Division Lead",
     };
     setData((prev: any) => ({ ...prev, subsystems: [...prev.subsystems, newWing] }));
@@ -226,12 +227,15 @@ export default function AdminDashboard() {
       category: "Fixed-wing / Aerodynamics",
       badgeVariant: "orange",
       description: "Technical build description...",
+      fullOverview: "Detailed aeronautical architecture, propulsion analysis, and flight testing notes for the dedicated vehicle page...",
       specifications: {
         "Wingspan": "1200 mm",
         "Cruise Speed": "60 km/h",
       },
       tags: ["Aerodynamics", "2025 Fleet"],
       imagePlaceholder: "",
+      images: [],
+      flightLogs: ["Flight Readiness Certified", "Maiden Autonomous Waypoint Mission Passed"],
       featured: false,
     };
     setData((prev: any) => ({ ...prev, projects: [...prev.projects, newProj] }));
@@ -240,6 +244,26 @@ export default function AdminDashboard() {
 
   const removeProject = (index: number) => {
     const updated = data.projects.filter((_: any, i: number) => i !== index);
+    setData((prev: any) => ({ ...prev, projects: updated }));
+    setHasUnsavedChanges(true);
+  };
+
+  const addProjectImage = (pIdx: number, url: string) => {
+    if (!url) return;
+    const updated = [...data.projects];
+    const currentImages = updated[pIdx].images || [];
+    updated[pIdx] = { ...updated[pIdx], images: [...currentImages, url] };
+    setData((prev: any) => ({ ...prev, projects: updated }));
+    setHasUnsavedChanges(true);
+  };
+
+  const removeProjectImage = (pIdx: number, imgIdx: number) => {
+    const updated = [...data.projects];
+    const currentImages = updated[pIdx].images || [];
+    updated[pIdx] = {
+      ...updated[pIdx],
+      images: currentImages.filter((_: any, i: number) => i !== imgIdx),
+    };
     setData((prev: any) => ({ ...prev, projects: updated }));
     setHasUnsavedChanges(true);
   };
@@ -263,7 +287,10 @@ export default function AdminDashboard() {
       rank: "1st Place — Gold Trophy",
       category: "Autonomous UAV Systems",
       description: "Official description of the flight mission, competition challenge, and technical laurels achieved.",
+      fullStory: "Comprehensive competition recap, technical hurdles overcome during flight rounds, and judges' commendations...",
       imagePlaceholder: "",
+      images: [],
+      details: ["Achieved 99.4% autonomous waypoint accuracy", "Fastest course completion time among 45 collegiate teams"],
     };
     setData((prev: any) => ({
       ...prev,
@@ -277,6 +304,32 @@ export default function AdminDashboard() {
 
   const removeAchievementRecord = (index: number) => {
     const updated = (data.achievements?.records || []).filter((_: any, i: number) => i !== index);
+    setData((prev: any) => ({
+      ...prev,
+      achievements: { ...prev.achievements, records: updated },
+    }));
+    setHasUnsavedChanges(true);
+  };
+
+  const addAchievementImage = (aIdx: number, url: string) => {
+    if (!url) return;
+    const updated = [...(data.achievements?.records || [])];
+    const currentImages = updated[aIdx].images || [];
+    updated[aIdx] = { ...updated[aIdx], images: [...currentImages, url] };
+    setData((prev: any) => ({
+      ...prev,
+      achievements: { ...prev.achievements, records: updated },
+    }));
+    setHasUnsavedChanges(true);
+  };
+
+  const removeAchievementImage = (aIdx: number, imgIdx: number) => {
+    const updated = [...(data.achievements?.records || [])];
+    const currentImages = updated[aIdx].images || [];
+    updated[aIdx] = {
+      ...updated[aIdx],
+      images: currentImages.filter((_: any, i: number) => i !== imgIdx),
+    };
     setData((prev: any) => ({
       ...prev,
       achievements: { ...prev.achievements, records: updated },
@@ -379,7 +432,7 @@ export default function AdminDashboard() {
             <div>
               <input
                 type="password"
-                placeholder="Passcode (Default: airnova2025)"
+                placeholder="Enter Admin Passcode"
                 value={passcode}
                 onChange={(e) => setPasscode(e.target.value)}
                 className="w-full px-4 py-3 rounded-xl bg-brand-navy border border-brand-slate focus:border-brand-orange focus:ring-1 focus:ring-brand-orange text-sm text-brand-light placeholder:text-brand-muted/50 focus:outline-none transition-all font-mono text-center"
@@ -1844,7 +1897,7 @@ export default function AdminDashboard() {
                     <span>8 Functional Subsystems ({data.subsystems.length} Active)</span>
                   </h2>
                   <p className="text-xs text-brand-muted mt-1 font-sans">
-                    Configure divisions, icon bindings, descriptions, and operational leads.
+                    Configure divisions, icon bindings, descriptions, subsystem head names, and operational lead roles.
                   </p>
                 </div>
 
@@ -1885,28 +1938,42 @@ export default function AdminDashboard() {
                       </button>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                       <div>
                         <label className="block text-[11px] font-mono text-brand-muted mb-1">
-                          Icon Glyph (Wing, Rocket, Cpu, Microscope, Handshake, FileText, Wallet, Megaphone)
+                          Subsystem Head / Lead Name
+                        </label>
+                        <input
+                          type="text"
+                          placeholder="e.g. Aarav Sharma"
+                          value={sub.leadName || ""}
+                          onChange={(e) => updateSubsystem(idx, "leadName", e.target.value)}
+                          className="w-full px-3 py-1.5 rounded bg-brand-slate border border-brand-border text-xs text-brand-light font-bold"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="block text-[11px] font-mono text-brand-muted mb-1">
+                          Division Operational Lead Role
+                        </label>
+                        <input
+                          type="text"
+                          placeholder="e.g. Division Lead"
+                          value={sub.leadRole || ""}
+                          onChange={(e) => updateSubsystem(idx, "leadRole", e.target.value)}
+                          className="w-full px-3 py-1.5 rounded bg-brand-slate border border-brand-border text-xs text-brand-light"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="block text-[11px] font-mono text-brand-muted mb-1">
+                          Icon Glyph (Wing, Rocket, Cpu, etc.)
                         </label>
                         <input
                           type="text"
                           value={sub.icon}
                           onChange={(e) => updateSubsystem(idx, "icon", e.target.value)}
                           className="w-full px-3 py-1.5 rounded bg-brand-slate border border-brand-border text-xs text-brand-light font-mono"
-                        />
-                      </div>
-
-                      <div>
-                        <label className="block text-[11px] font-mono text-brand-muted mb-1">
-                          Division Operational Lead
-                        </label>
-                        <input
-                          type="text"
-                          value={sub.leadRole}
-                          onChange={(e) => updateSubsystem(idx, "leadRole", e.target.value)}
-                          className="w-full px-3 py-1.5 rounded bg-brand-slate border border-brand-border text-xs text-brand-light"
                         />
                       </div>
                     </div>
@@ -1938,7 +2005,7 @@ export default function AdminDashboard() {
                     <span>Flagship Aerial Fleet ({data.projects.length} Builds)</span>
                   </h2>
                   <p className="text-xs text-brand-muted mt-1 font-sans">
-                    Edit aircraft builds, categories, images/renders, specifications, and telemetry specs.
+                    Edit aircraft builds, categories, multiple high-res photos, specifications, and dedicated page architecture.
                   </p>
                 </div>
 
@@ -1955,18 +2022,32 @@ export default function AdminDashboard() {
                 {data.projects.map((proj: any, idx: number) => (
                   <div
                     key={proj.id || idx}
-                    className="p-5 rounded-xl bg-brand-navy/80 border border-brand-slate space-y-3"
+                    className="p-5 sm:p-6 rounded-xl bg-brand-navy/80 border border-brand-slate space-y-4"
                   >
-                    <div className="flex items-center justify-between">
-                      <input
-                        type="text"
-                        value={proj.name}
-                        onChange={(e) => updateProject(idx, "name", e.target.value)}
-                        className="px-2.5 py-1 rounded bg-brand-slate border border-brand-border text-base font-bold text-brand-light"
-                      />
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-brand-slate/60 pb-3">
+                      <div className="flex items-center gap-2 flex-grow">
+                        <input
+                          type="text"
+                          value={proj.name}
+                          onChange={(e) => updateProject(idx, "name", e.target.value)}
+                          className="px-2.5 py-1 rounded bg-brand-slate border border-brand-border text-base font-bold text-brand-light flex-grow max-w-sm"
+                        />
+                        <span className="text-[11px] font-mono text-brand-muted px-2 py-0.5 rounded bg-brand-navy border border-brand-slate shrink-0">
+                          ID: {proj.id}
+                        </span>
+                      </div>
 
-                      <div className="flex items-center gap-2">
-                        <label className="flex items-center gap-1.5 text-xs font-mono text-brand-orange cursor-pointer">
+                      <div className="flex items-center gap-3">
+                        <Link
+                          href={`/projects/${proj.id}`}
+                          target="_blank"
+                          className="text-xs font-mono text-brand-orange hover:underline inline-flex items-center gap-1 shrink-0"
+                        >
+                          <span>View Dedicated Page</span>
+                          <ExternalLink className="w-3 h-3" />
+                        </Link>
+
+                        <label className="flex items-center gap-1.5 text-xs font-mono text-brand-orange cursor-pointer shrink-0">
                           <input
                             type="checkbox"
                             checked={proj.featured || false}
@@ -1979,36 +2060,77 @@ export default function AdminDashboard() {
                         <button
                           onClick={() => removeProject(idx)}
                           className="p-1.5 rounded bg-red-500/10 text-red-400 hover:bg-red-500 hover:text-white border border-red-500/30 transition-colors"
+                          title="Delete Project"
                         >
                           <Trash2 className="w-3.5 h-3.5" />
                         </button>
                       </div>
                     </div>
 
-                    {/* Image / Render Uploader for this Project */}
-                    <div className="p-3 rounded-lg bg-brand-slate/50 border border-brand-border/60 flex flex-col sm:flex-row items-center gap-3">
-                      <div className="w-20 h-14 rounded-lg bg-brand-navy border border-brand-slate overflow-hidden shrink-0 flex items-center justify-center">
-                        {proj.imagePlaceholder && !proj.imagePlaceholder.includes("/images/projects/") ? (
-                          <img
-                            src={proj.imagePlaceholder}
-                            alt={proj.name}
-                            className="w-full h-full object-cover"
+                    {/* Primary Vehicle Banner Photo */}
+                    <div className="p-3.5 rounded-xl bg-brand-slate/40 border border-brand-slate space-y-2">
+                      <label className="block text-xs font-mono text-brand-orange uppercase font-bold">
+                        Primary Cover Image / Render
+                      </label>
+                      <div className="flex flex-col sm:flex-row items-center gap-3">
+                        <div className="w-20 h-14 rounded-lg bg-brand-navy border border-brand-slate overflow-hidden shrink-0 flex items-center justify-center">
+                          {proj.imagePlaceholder && !proj.imagePlaceholder.includes("/images/projects/") ? (
+                            <img
+                              src={proj.imagePlaceholder}
+                              alt={proj.name}
+                              className="w-full h-full object-cover"
+                            />
+                          ) : (
+                            <Plane className="w-6 h-6 text-brand-muted" />
+                          )}
+                        </div>
+                        <div className="flex-grow space-y-1 w-full">
+                          <input
+                            type="text"
+                            placeholder="Primary Cover Image URL (e.g. /uploads/vtol-render.jpg)"
+                            value={proj.imagePlaceholder || ""}
+                            onChange={(e) => updateProject(idx, "imagePlaceholder", e.target.value)}
+                            className="w-full px-2.5 py-1 rounded bg-brand-navy border border-brand-slate text-xs text-brand-light font-mono"
                           />
-                        ) : (
-                          <Plane className="w-6 h-6 text-brand-muted" />
-                        )}
+                          <div className="flex items-center gap-2">
+                            <label className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-brand-orange/15 hover:bg-brand-orange text-brand-orange hover:text-white text-[11px] font-mono cursor-pointer transition-colors">
+                              <Upload className="w-3 h-3" />
+                              <span>Upload Cover Image</span>
+                              <input
+                                type="file"
+                                accept="image/*"
+                                onChange={async (e) => {
+                                  const file = e.target.files?.[0];
+                                  if (!file) return;
+                                  const url = await uploadFileDirectly(file);
+                                  if (url) updateProject(idx, "imagePlaceholder", url);
+                                }}
+                                className="hidden"
+                              />
+                            </label>
+                            {proj.imagePlaceholder && (
+                              <button
+                                type="button"
+                                onClick={() => updateProject(idx, "imagePlaceholder", "")}
+                                className="text-[11px] text-red-400 hover:text-red-300 font-mono"
+                              >
+                                Clear Cover
+                              </button>
+                            )}
+                          </div>
+                        </div>
                       </div>
-                      <div className="flex-grow space-y-1 w-full">
-                        <input
-                          type="text"
-                          placeholder="Aircraft Render URL (e.g. /uploads/vtol-render.jpg)"
-                          value={proj.imagePlaceholder || ""}
-                          onChange={(e) => updateProject(idx, "imagePlaceholder", e.target.value)}
-                          className="w-full px-2.5 py-1 rounded bg-brand-navy border border-brand-slate text-xs text-brand-light font-mono"
-                        />
-                        <label className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-brand-orange/15 hover:bg-brand-orange text-brand-orange hover:text-white text-[11px] font-mono cursor-pointer transition-colors">
-                          <Upload className="w-3 h-3" />
-                          <span>Upload Vehicle Image</span>
+                    </div>
+
+                    {/* MULTI-PHOTO GALLERY MANAGER */}
+                    <div className="p-3.5 rounded-xl bg-brand-slate/40 border border-brand-slate space-y-3">
+                      <div className="flex items-center justify-between">
+                        <label className="block text-xs font-mono text-brand-orange uppercase font-bold">
+                          Multi-Photo Gallery & Telemetry Frames ({(proj.images || []).length} photos)
+                        </label>
+                        <label className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-brand-orange hover:bg-brand-orange-hover text-white text-xs font-mono cursor-pointer transition-colors shadow-sm">
+                          <Plus className="w-3.5 h-3.5" />
+                          <span>Upload & Add Photo</span>
                           <input
                             type="file"
                             accept="image/*"
@@ -2016,12 +2138,42 @@ export default function AdminDashboard() {
                               const file = e.target.files?.[0];
                               if (!file) return;
                               const url = await uploadFileDirectly(file);
-                              if (url) updateProject(idx, "imagePlaceholder", url);
+                              if (url) addProjectImage(idx, url);
                             }}
                             className="hidden"
                           />
                         </label>
                       </div>
+
+                      {/* Display Gallery Grid */}
+                      {proj.images && proj.images.length > 0 ? (
+                        <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 gap-3">
+                          {proj.images.map((imgUrl: string, imgIdx: number) => (
+                            <div
+                              key={imgIdx}
+                              className="relative group rounded-lg overflow-hidden border border-brand-slate bg-brand-navy aspect-video"
+                            >
+                              <img
+                                src={imgUrl}
+                                alt={`Gallery ${imgIdx + 1}`}
+                                className="w-full h-full object-cover"
+                              />
+                              <button
+                                type="button"
+                                onClick={() => removeProjectImage(idx, imgIdx)}
+                                className="absolute top-1 right-1 p-1 rounded bg-black/80 text-red-400 hover:text-red-300 opacity-0 group-hover:opacity-100 transition-opacity"
+                                title="Remove photo"
+                              >
+                                <Trash2 className="w-3 h-3" />
+                              </button>
+                            </div>
+                          ))}
+                        </div>
+                      ) : (
+                        <p className="text-xs font-mono text-brand-muted italic">
+                          No extra gallery photos uploaded yet. Use the button above to add high-resolution photos for the dedicated project page!
+                        </p>
+                      )}
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
@@ -2049,12 +2201,27 @@ export default function AdminDashboard() {
                     </div>
 
                     <div>
-                      <label className="block text-[11px] font-mono text-brand-muted mb-1">Description</label>
+                      <label className="block text-[11px] font-mono text-brand-muted mb-1">
+                        Short Card Description
+                      </label>
                       <textarea
                         rows={2}
                         value={proj.description}
                         onChange={(e) => updateProject(idx, "description", e.target.value)}
                         className="w-full px-3 py-1.5 rounded bg-brand-slate border border-brand-border text-xs text-brand-light resize-none"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block text-[11px] font-mono text-brand-orange uppercase font-bold mb-1">
+                        Dedicated Page Full Engineering Overview & Architecture Notes
+                      </label>
+                      <textarea
+                        rows={4}
+                        value={proj.fullOverview || ""}
+                        onChange={(e) => updateProject(idx, "fullOverview", e.target.value)}
+                        placeholder="Comprehensive aerodynamic breakdown, propulsion dynamics, flight computer telemetry, and subsystem contributions for the dedicated project page..."
+                        className="w-full px-3 py-2 rounded bg-brand-slate border border-brand-border text-xs text-brand-light font-sans"
                       />
                     </div>
                   </div>
@@ -2073,7 +2240,7 @@ export default function AdminDashboard() {
                     <span>Key Statistics & Competition Accolades</span>
                   </h2>
                   <p className="text-xs text-brand-muted mt-1 font-sans">
-                    Edit live numerical stat counters and manage competition victory trophies ({data.achievements.records?.length || 0} records).
+                    Edit live numerical stat counters, upload trophy photo galleries, and manage dedicated victory pages ({data.achievements.records?.length || 0} records).
                   </p>
                 </div>
 
@@ -2223,8 +2390,8 @@ export default function AdminDashboard() {
                     className="p-5 sm:p-6 rounded-2xl bg-brand-navy/80 border border-brand-slate hover:border-brand-orange/40 transition-colors space-y-4"
                   >
                     {/* Record Card Header */}
-                    <div className="flex items-center justify-between gap-3 border-b border-brand-slate/60 pb-3">
-                      <div className="flex items-center gap-2">
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-brand-slate/60 pb-3">
+                      <div className="flex items-center gap-2 flex-wrap">
                         <span className="w-6 h-6 rounded-full bg-brand-orange/20 text-brand-orange text-xs font-mono font-bold flex items-center justify-center">
                           #{idx + 1}
                         </span>
@@ -2234,16 +2401,30 @@ export default function AdminDashboard() {
                         <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-brand-orange/15 text-brand-orange border border-brand-orange/30">
                           {rec.rank || "RECORD"}
                         </span>
+                        <span className="text-[11px] font-mono text-brand-muted px-2 py-0.5 rounded bg-brand-navy border border-brand-slate">
+                          ID: {rec.id}
+                        </span>
                       </div>
 
-                      <button
-                        type="button"
-                        onClick={() => removeAchievementRecord(idx)}
-                        className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-red-500/10 hover:bg-red-500/20 text-red-400 border border-red-500/30 text-xs font-mono transition-colors"
-                      >
-                        <Trash2 className="w-3.5 h-3.5" />
-                        <span>Remove Record</span>
-                      </button>
+                      <div className="flex items-center gap-3">
+                        <Link
+                          href={`/achievements/${rec.id}`}
+                          target="_blank"
+                          className="text-xs font-mono text-brand-orange hover:underline inline-flex items-center gap-1 shrink-0"
+                        >
+                          <span>View Dedicated Page</span>
+                          <ExternalLink className="w-3 h-3" />
+                        </Link>
+
+                        <button
+                          type="button"
+                          onClick={() => removeAchievementRecord(idx)}
+                          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-red-500/10 hover:bg-red-500/20 text-red-400 border border-red-500/30 text-xs font-mono transition-colors"
+                        >
+                          <Trash2 className="w-3.5 h-3.5" />
+                          <span>Remove</span>
+                        </button>
+                      </div>
                     </div>
 
                     {/* Form Fields Grid */}
@@ -2318,7 +2499,7 @@ export default function AdminDashboard() {
 
                     <div>
                       <label className="block text-[11px] font-mono text-brand-muted mb-1">
-                        Accomplishment Description
+                        Accomplishment Short Description
                       </label>
                       <textarea
                         rows={2}
@@ -2329,10 +2510,23 @@ export default function AdminDashboard() {
                       />
                     </div>
 
-                    {/* Trophy Photo / Media Upload */}
-                    <div className="pt-2 border-t border-brand-slate/50">
-                      <label className="block text-[11px] font-mono text-brand-muted mb-1.5">
-                        Trophy / Competition Victory Photo (Optional)
+                    <div>
+                      <label className="block text-[11px] font-mono text-brand-orange uppercase font-bold mb-1">
+                        Dedicated Page Full Challenge & Victory Story
+                      </label>
+                      <textarea
+                        rows={4}
+                        value={rec.fullStory || ""}
+                        onChange={(e) => updateAchievementRecord(idx, "fullStory", e.target.value)}
+                        placeholder="In-depth narrative of the competition challenge, technical breakthroughs during flight rounds, judges' praise, and subsystem highlights..."
+                        className="w-full px-3 py-2 rounded-lg bg-brand-slate border border-brand-border text-xs text-brand-light font-sans"
+                      />
+                    </div>
+
+                    {/* Primary Trophy Photo */}
+                    <div className="pt-2 border-t border-brand-slate/50 space-y-2">
+                      <label className="block text-[11px] font-mono text-brand-muted">
+                        Primary Trophy / Competition Victory Photo (Optional)
                       </label>
                       <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3">
                         {rec.imagePlaceholder && (
@@ -2379,6 +2573,60 @@ export default function AdminDashboard() {
                           </button>
                         )}
                       </div>
+                    </div>
+
+                    {/* MULTI-PHOTO TROPHY GALLERY MANAGER */}
+                    <div className="p-3.5 rounded-xl bg-brand-slate/40 border border-brand-slate space-y-3">
+                      <div className="flex items-center justify-between">
+                        <label className="block text-xs font-mono text-brand-orange uppercase font-bold">
+                          Multi-Photo Trophy & Event Gallery ({(rec.images || []).length} photos)
+                        </label>
+                        <label className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-brand-orange hover:bg-brand-orange-hover text-white text-xs font-mono cursor-pointer transition-colors shadow-sm">
+                          <Plus className="w-3.5 h-3.5" />
+                          <span>Upload & Add Photo</span>
+                          <input
+                            type="file"
+                            accept="image/*"
+                            onChange={async (e) => {
+                              const file = e.target.files?.[0];
+                              if (!file) return;
+                              const url = await uploadFileDirectly(file);
+                              if (url) addAchievementImage(idx, url);
+                            }}
+                            className="hidden"
+                          />
+                        </label>
+                      </div>
+
+                      {/* Display Gallery Grid */}
+                      {rec.images && rec.images.length > 0 ? (
+                        <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 gap-3">
+                          {rec.images.map((imgUrl: string, imgIdx: number) => (
+                            <div
+                              key={imgIdx}
+                              className="relative group rounded-lg overflow-hidden border border-brand-slate bg-brand-navy aspect-video"
+                            >
+                              <img
+                                src={imgUrl}
+                                alt={`Trophy Gallery ${imgIdx + 1}`}
+                                className="w-full h-full object-cover"
+                              />
+                              <button
+                                type="button"
+                                onClick={() => removeAchievementImage(idx, imgIdx)}
+                                className="absolute top-1 right-1 p-1 rounded bg-black/80 text-red-400 hover:text-red-300 opacity-0 group-hover:opacity-100 transition-opacity"
+                                title="Remove photo"
+                              >
+                                <Trash2 className="w-3 h-3" />
+                              </button>
+                            </div>
+                          ))}
+                        </div>
+                      ) : (
+                        <p className="text-xs font-mono text-brand-muted italic">
+                          No extra event photos uploaded yet. Use the button above to add podium and flight test photos for the dedicated achievement page!
+                        </p>
+                      )}
                     </div>
                   </div>
                 ))}

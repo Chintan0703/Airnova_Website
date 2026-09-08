@@ -10,7 +10,8 @@
       "FEA Structural Stress Testing",
       "Weight-to-Stiffness Profiling"
     ],
-    "leadRole": "Aerodynamics Lead"
+    "leadRole": "Aerodynamics Lead",
+    "leadName": "Rohan Varma"
   },
   {
     "id": "propulsion",
@@ -23,7 +24,8 @@
       "LiPo Battery Management Systems (BMS)",
       "Propeller Aerodynamic Efficiency"
     ],
-    "leadRole": "Propulsion Systems Lead"
+    "leadRole": "Propulsion Systems Lead",
+    "leadName": "Ananya Deshmukh"
   },
   {
     "id": "controls",
@@ -36,7 +38,8 @@
       "GPS-Denied Navigation & VIO",
       "Long-Range Telemetry Links"
     ],
-    "leadRole": "Avionics & Controls Lead"
+    "leadRole": "Avionics & Controls Lead",
+    "leadName": "Vikramaditya Rao"
   },
   {
     "id": "rd",
@@ -49,7 +52,8 @@
       "Computer Vision & Edge AI",
       "Novel VTOL Transitions"
     ],
-    "leadRole": "R&D Principal"
+    "leadRole": "R&D Principal",
+    "leadName": "Devansh Patel"
   },
   {
     "id": "sponsorship",
@@ -62,7 +66,8 @@
       "Corporate Synergy Proposals",
       "Alumni & Industry Networking"
     ],
-    "leadRole": "Corporate Relations Head"
+    "leadRole": "Corporate Relations Head",
+    "leadName": "Pooja Hegde"
   },
   {
     "id": "documentation",
@@ -75,7 +80,8 @@
       "Competition Rule Compliance",
       "Standard Operating Procedures (SOP)"
     ],
-    "leadRole": "Documentation Lead"
+    "leadRole": "Documentation Lead",
+    "leadName": "Siddharth Nair"
   },
   {
     "id": "finance",
@@ -88,7 +94,8 @@
       "Vendor Sourcing & Quality Control",
       "Lab Equipment Maintenance"
     ],
-    "leadRole": "Finance & Logistics Head"
+    "leadRole": "Finance & Logistics Head",
+    "leadName": "Tanvi Joshi"
   },
   {
     "id": "social",
@@ -101,6 +108,7 @@
       "Branding & Digital Identity",
       "Recruitment Campaigns"
     ],
-    "leadRole": "Public Relations Lead"
+    "leadRole": "Public Relations Lead",
+    "leadName": "Aditya Sen"
   }
 ]

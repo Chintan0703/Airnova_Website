@@ -61,6 +61,7 @@ export interface Subsystem {
   description: string;
   focusAreas: string[];
   leadRole?: string;
+  leadName?: string;
 }
 
 export interface Milestone {
@@ -77,9 +78,12 @@ export interface Project {
   category: string;
   badgeVariant?: "ion" | "orange" | "purple" | "emerald" | "amber" | "pink" | "muted";
   description: string;
+  fullOverview?: string;
   specifications: Record<string, string>;
   tags: string[];
   imagePlaceholder?: string;
+  images?: string[];
+  flightLogs?: string[];
   featured?: boolean;
 }
 
@@ -107,7 +111,10 @@ export interface Achievement {
   rank: string;
   category: string;
   description: string;
+  fullStory?: string;
+  details?: string[];
   imagePlaceholder?: string;
+  images?: string[];
 }
 
 export interface AchievementStats {

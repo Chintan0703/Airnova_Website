@@ -1,13 +1,13 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
+import Link from "next/link";
 import { 
   Trophy, 
   Award, 
   Clock, 
   Users, 
   CheckCircle2, 
-  Maximize2, 
   Sparkles,
   ExternalLink,
   ChevronRight
@@ -15,29 +15,11 @@ import {
 import ScrollReveal from "@/components/ui/ScrollReveal";
 import Watermark from "@/components/ui/Watermark";
 import AnimatedCounter from "@/components/ui/AnimatedCounter";
-import Lightbox, { LightboxItem } from "@/components/ui/Lightbox";
 import achievementsData from "@/content/achievements.json";
 
 export default function Achievements() {
-  const [activeLightboxIndex, setActiveLightboxIndex] = useState<number | null>(null);
-
   const stats = achievementsData.stats;
   const records = achievementsData.records;
-
-  const currentItem: LightboxItem | null =
-    activeLightboxIndex !== null ? (records[activeLightboxIndex] as LightboxItem) : null;
-
-  const handleNext = () => {
-    if (activeLightboxIndex !== null && activeLightboxIndex < records.length - 1) {
-      setActiveLightboxIndex(activeLightboxIndex + 1);
-    }
-  };
-
-  const handlePrev = () => {
-    if (activeLightboxIndex !== null && activeLightboxIndex > 0) {
-      setActiveLightboxIndex(activeLightboxIndex - 1);
-    }
-  };
 
   return (
     <section
@@ -68,13 +50,13 @@ export default function Achievements() {
               Our engineering solutions have been tested and proven at premier national and collegiate aerospace challenges.
             </p>
             <div className="flex items-center justify-center gap-3">
-              <a
+              <Link
                 href="/achievements"
                 className="inline-flex items-center gap-1.5 text-xs font-mono text-brand-orange hover:underline px-3 py-1.5 rounded-md bg-brand-orange/10 border border-brand-orange/30"
               >
                 <span>View Dedicated Archive Page (/achievements)</span>
                 <ChevronRight className="w-3.5 h-3.5" />
-              </a>
+              </Link>
             </div>
           </ScrollReveal>
         </div>
@@ -146,9 +128,9 @@ export default function Achievements() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
           {records.map((record, index) => (
             <ScrollReveal key={record.id} delay={0.1 * index} direction="up" className="h-full">
-              <div
-                onClick={() => setActiveLightboxIndex(index)}
-                className="glass-panel glass-panel-hover rounded-2xl p-6 sm:p-8 border border-brand-slate/90 flex flex-col justify-between h-full cursor-pointer group relative overflow-hidden transition-all duration-300 hover:border-brand-orange/50 hover:shadow-orange-glow"
+              <Link
+                href={`/achievements/${record.id}`}
+                className="glass-panel glass-panel-hover rounded-2xl p-6 sm:p-8 border border-brand-slate/90 flex flex-col justify-between h-full cursor-pointer group relative overflow-hidden transition-all duration-300 hover:border-brand-orange/50 hover:shadow-orange-glow block"
               >
                 {/* Ambient Highlight */}
                 <div
@@ -158,7 +140,7 @@ export default function Achievements() {
 
                 {/* Optional Image Banner if Uploaded */}
                 {record.imagePlaceholder && (record.imagePlaceholder.startsWith("/uploads/") || record.imagePlaceholder.startsWith("http")) && (
-                  <div className="w-full h-36 rounded-xl overflow-hidden mb-4 border border-brand-slate/80 relative">
+                  <div className="w-full h-44 rounded-xl overflow-hidden mb-4 border border-brand-slate/80 relative">
                     <img
                       src={record.imagePlaceholder}
                       alt={record.title}
@@ -193,26 +175,16 @@ export default function Achievements() {
 
                 <div className="pt-4 border-t border-brand-slate/70 flex items-center justify-between text-xs font-mono">
                   <span className="text-brand-muted">Division: {record.category}</span>
-                  <span className="text-brand-orange font-medium flex items-center gap-1 group-hover:translate-x-1 transition-transform">
-                    <span>Inspect Record</span>
-                    <Maximize2 className="w-3.5 h-3.5" />
+                  <span className="text-brand-orange font-medium flex items-center gap-1.5 group-hover:translate-x-1 transition-transform">
+                    <span>Inspect Victory Record</span>
+                    <ExternalLink className="w-3.5 h-3.5" />
                   </span>
                 </div>
-              </div>
+              </Link>
             </ScrollReveal>
           ))}
         </div>
       </div>
-
-      {/* Lightbox Modal */}
-      <Lightbox
-        item={currentItem}
-        onClose={() => setActiveLightboxIndex(null)}
-        onNext={handleNext}
-        onPrev={handlePrev}
-        hasNext={activeLightboxIndex !== null && activeLightboxIndex < records.length - 1}
-        hasPrev={activeLightboxIndex !== null && activeLightboxIndex > 0}
-      />
     </section>
   );
 }

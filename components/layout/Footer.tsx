@@ -195,13 +195,6 @@ export default function Footer() {
               Motto: &ldquo;{siteData.tagline}&rdquo;
             </span>
 
-            <Link
-              href="/admin"
-              className="text-brand-muted hover:text-brand-orange text-[11px] font-mono transition-colors"
-            >
-              [Admin Flight Deck]
-            </Link>
-
             {/* Back to top button */}
             <button
               onClick={scrollToTop}
